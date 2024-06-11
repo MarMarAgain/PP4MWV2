@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workshop List</title>
+</head>
+<body>
+    <h1>Workshop List</h1>
+    <ul>
+        {% for workshop in workshops %}
+    <h2>{{ workshop.title }}</h2>
+    <p>{{ workshop.description }}</p>
+    <p>Price: ${{ workshop.price }}</p>
+    <p>Category: {{ workshop.category }}</p>
+    <p>Duration: {{ workshop.duration }}</p>
+{% endfor %}
+
+    </ul>
+</body>
+</html>
+
