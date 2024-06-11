@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "accounts.apps.AccountsConfig",
-    "workshops.apps.WorkshopsConfig"
+    "workshops.apps.WorkshopsConfig",
+    "payments.apps.PaymentsConfig",
 ]
 
 MIDDLEWARE = [
