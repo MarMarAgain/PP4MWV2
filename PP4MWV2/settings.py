@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "accounts.apps.AccountsConfig",
     "workshops.apps.WorkshopsConfig",
-    "payments.apps.PaymentsConfig",
+    "purchase.apps.PurchaseConfig",
 ]
 
 MIDDLEWARE = [
@@ -127,4 +128,23 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "home"
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend" 
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+# Payment configurations
+PAYMENT_VARIANTS = {
+    'default': ('payments.dummy.DummyProvider', {
+        'client_id': 'dummy_client_id',
+        'secret': 'dummy_secret'
+    }),
+    'stripe': ('payments.stripe.StripeProvider', {
+        'secret_key': 'sk_test_your_stripe_secret_key',
+        'public_key': 'pk_test_your_stripe_public_key'
+    }),
+    'paypal': ('payments.paypal.PaypalProvider', {
+        'client_id': 'your_paypal_client_id',
+        'secret': 'your_paypal_secret',
+        'endpoint': 'https://api.sandbox.paypal.com',  # Use sandbox endpoint for testing
+    })
+}
+
+PAYMENT_HOST = os.environ.get('PAYMENT_HOST', 'localhost')
