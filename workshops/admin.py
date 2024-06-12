@@ -1,5 +1,14 @@
 from django.contrib import admin
-from .models import Workshop
+from .models import Workshop, WorkshopDateTime
 
-admin.site.register(Workshop)
-#may need to intergrate this here to pre-existing admin panel
+class WorkshopDateTimeInline(admin.TabularInline):
+    model = WorkshopDateTime
+    extra = 1
+
+@admin.register(Workshop)
+class WorkshopAdmin(admin.ModelAdmin):
+    list_display = ('title', 'date', 'price')  # Date added to list
+    list_filter = ('date', 'category')  # Date added to list filter
+    search_fields = ('title', 'description')
+    inlines = [WorkshopDateTimeInline]  # Inline formet for WorkshopDateTime
+
