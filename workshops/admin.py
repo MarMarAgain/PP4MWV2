@@ -4,6 +4,7 @@ from .models import Workshop, WorkshopDateTime
 class WorkshopDateTimeInline(admin.TabularInline):
     model = WorkshopDateTime
     extra = 1
+    fields = ('date_time', 'time_choice')
 
 @admin.register(Workshop)
 class WorkshopAdmin(admin.ModelAdmin):
