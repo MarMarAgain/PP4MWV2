@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'profiles/css/edit_profile.css' %}">
+</head>
+<body>
+    <div class="sidebar">
+        <h2 class="sidebar-title">Masterworks</h2>
+        <nav class="sidebar-nav">
+            <a href="#" class="sidebar-link active">
+                <img src="https://via.placeholder.com/16" alt="Home Icon">
+                Home
+            </a>
+            <a href="#" class="sidebar-link">
+                <img src="https://via.placeholder.com/16" alt="Search Icon">
+                Search
+            </a>
+            <a href="#" class="sidebar-link">
+                <img src="https://via.placeholder.com/16" alt="Notifications Icon">
+                Notifications
+            </a>
+            <a href="#" class="sidebar-link">
+                <img src="https://via.placeholder.com/16" alt="Classes Icon">
+                Classes
+            </a>
+            <a href="#" class="sidebar-link">
+                <img src="https://via.placeholder.com/16" alt="Messages Icon">
+                Messages
+            </a>
+        </nav>
+    </div>
+    <div class="main-content">
+        <h1>Edit profile</h1>
+        <div class="profile-section">
+            <div class="profile-header">
+                <img src="https://via.placeholder.com/64" alt="Profile Photo" class="profile-photo">
+                <div class="profile-info">
+                    <p class="profile-name">Helena Hills</p>
+                    <a href="#" class="change-photo-link">Change profile photo</a>
+                </div>
+            </div>
+            <div class="profile-form">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="students-info">
+                        <h3>My students are:</h3>
+                        <textarea name="students_info" class="textarea-field" placeholder="Please input if you teach pass, ordinary or higher level here. As well as which cycle (junior or senior). You can also add any other information you think may be relevant."></textarea>
+                    </div>
+                    <button type="submit" class="save-changes">Save changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
