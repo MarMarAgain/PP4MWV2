@@ -1,21 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Workshop List</title>
 </head>
 <body>
-    <h1>Workshop List</h1>
+    <h1>Workshops</h1>
     <ul>
         {% for workshop in workshops %}
-    <h2>{{ workshop.title }}</h2>
-    <p>{{ workshop.description }}</p>
-    <p>Price: ${{ workshop.price }}</p>
-    <p>Category: {{ workshop.category }}</p>
-    <p>Duration: {{ workshop.duration }}</p>
-{% endfor %}
-
+            <li>
+                 {% if workshop.image %}
+                    <img src="{{ workshop.image.url }}" alt="{{ workshop.title }}" width="100">
+                {% else %}
+                    <p>No Image Available</p>
+                {% endif %}
+                <a href="{% url 'workshop_detail' workshop_id=workshop.id %}">{{ workshop.title }}</a>
+                <p>{{ workshop.description }}</p>
+                <p>Price: €{{ workshop.price }}</p>
+                <p>Category: {{ workshop.category }}</p>
+                <p>Runtime: {{ workshop.runtime }}</p>
+                <form action="{% url 'add_to_cart' workshop_id=workshop.id %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <select name="date_time_id">
+                        {% for date_time in workshop.dates_times.all %}
+                            <option value="{{ date_time.id }}">{{ date_time.date_time }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit">Add to Cart</button>
+                </form>
+            </li>
+        {% endfor %}
     </ul>
 </body>
 </html>
