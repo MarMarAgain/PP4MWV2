@@ -1,6 +1,6 @@
 body {
     display: flex;
-    font-family: Arial, sans-serif;
+    font-family: "Roboto Light", sans-serif;
     background-color: #f9fafb;
     margin: 0;
     padding: 0;
@@ -33,6 +33,10 @@ body {
     text-decoration: none;
     font-size: 1rem;
     margin-bottom: 1rem;
+}
+
+.sidebar-link i {
+ margin-right: 10px;
 }
 
 .sidebar-link img {
@@ -98,10 +102,19 @@ body {
     flex-direction: column;
 }
 
+.profile-form .form-group {
+    margin-bottom: 30px;
+}
+
 .profile-form h2 {
     font-size: 1rem;
     font-weight: 600;
-    margin-bottom: 0.5rem;
+    margin-bottom: 2rem;
+}
+.profile-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
 }
 
 .input-field,
@@ -124,18 +137,6 @@ body {
     margin-bottom: 0.5rem;
 }
 
-.add-another {
-    background-color: transparent;
-    border: none;
-    color: #4f46e5;
-    font-size: 1rem;
-    cursor: pointer;
-    text-align: left;
-}
-
-.add-another:hover {
-    text-decoration: underline;
-}
 
 .save-changes {
     background-color: #4f46e5;
@@ -146,4 +147,5 @@ body {
     font-size: 1rem;
     cursor: pointer;
     align-self: flex-start;
+    margin-top: 30px;
 }
