@@ -13,8 +13,8 @@ def workshop_list(request):
 
 def workshop_detail(request, workshop_id):
     workshop = get_object_or_404(Workshop, pk=workshop_id)
-    form = WorkshopBookingForm(workshop_id=workshop_id)
-    return render(request, 'workshops/workshop_detail.html', {'workshop': workshop, 'form': form})
+    workshops = Workshop.objects.all()  # Fetch all workshops
+    return render(request, 'workshops/workshop_detail.html', {'workshop': workshop, 'workshops': workshops})
 
 @login_required
 def book_workshop(request, workshop_id):
