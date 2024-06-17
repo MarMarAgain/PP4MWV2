@@ -43,6 +43,10 @@ def book_workshop(request, workshop_id):
 
     return render(request, 'workshops/book_workshop.html', {'form': form, 'workshop': workshop})
 
+
+def bookings(request):
+    return render(request, 'workshops/bookings.html')
+
 @login_required
 def add_to_cart(request, workshop_id, date_time):
     workshop = get_object_or_404(Workshop, pk=workshop_id)

@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Workshop Details</title>
+    <script src="https://kit.fontawesome.com/76ccc5dbcf.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{% static 'workshop_static/css/workshop_styles.css' %}">
 </head>
 <body>
@@ -12,8 +13,8 @@
         <div class="container">
             <h1 class="site-title">Ocean Of Notions</h1>
             <nav class="nav">
+                <a href="#" class="nav-link">About</a>
                 <a href="#" class="nav-link">Workshops</a>
-                <a href="#" class="nav-link">FAQ</a>
                 <a href="#" class="nav-link">Contact</a>
                 <a href="#" class="nav-link login">Login</a>
             </nav>
@@ -25,11 +26,11 @@
                 <img src="{{ workshop.image.url }}" alt="{{ workshop.title }}" class="workshop-image">
                 <div class="workshop-info">
                     <h2 class="workshop-title">{{ workshop.title }}</h2>
+                    <p class="additional-info">{{ workshop.category }}, {{ workshop.runtime }}</p>
                     <p class="workshop-subtitle">{{ workshop.subtitle }}</p>
                     <p class="workshop-price">€{{ workshop.price }}</p>
                     <p class="workshop-description">About<br>{{ workshop.description }}</p>
                     <button class="add-to-cart">Add to cart</button>
-                    <p class="additional-info">Text box for additional details or fine print</p>
                 </div>
             </section>
             <section class="other-workshops">
@@ -73,11 +74,10 @@
                 <p>Page</p>
             </div>
             <div class="footer-social">
-                <a href="#"><img src="https://via.placeholder.com/24" alt="Facebook"></a>
-                <a href="#"><img src="https://via.placeholder.com/24" alt="LinkedIn"></a>
-                <a href="#"><img src="https://via.placeholder.com/24" alt="YouTube"></a>
-                <a href="#"><img src="https://via.placeholder.com/24" alt="Instagram"></a>
-            </div>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
         </div>
     </footer>
     <script src="{% static 'workshop_static/js/scripts.js' %}"></script>

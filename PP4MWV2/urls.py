@@ -29,5 +29,6 @@ urlpatterns = [
     path("", TemplateView.as_view(template_name="home.html"), name="home"),
     path('workshops/', include('workshops.urls')),
     path('payments/', include('purchase.urls')),
+    path('landing/', include('other_pages.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
