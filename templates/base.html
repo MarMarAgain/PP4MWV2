@@ -1,17 +1,43 @@
-<!-- templates/base.html -->
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>{% block title %}Django Auth Tutorial{% endblock %}</title>
+    <meta charset="UTF-8">
+    <title>{% block title %}Masterworks{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    {% block extra_head %}{% endblock %}
 </head>
-
 <body>
-  <main>
-    {% block content %}
-    {% endblock %}
-  </main>
-</body>
+  <header class="header container">
+        <h1 class="site-title">Ocean Of Notions</h1>
+            <nav class="nav">
+           <a href="{% url 'landing_page' %}#about_text">About</a>
+           <a href="{% url 'workshop_list' %}" class="nav-link">Workshops</a>
+           <a href="#contact" class="nav-link">Contact</a>
+            {% if user.is_authenticated %}
+       <a href="{% url 'profile' %}" class="nav-link">Profile</a>
+       <a href="{% url 'cart_view' %}" class="nav-link">Cart</a>
+       <a href="{% url 'logout' %}" class="nav-link login">Log out</a>
+   {% else %}
+       <a href="{% url 'login' %}" class="nav-link login">Log in</a>
+   {% endif %}
+</nav>
 
+
+   </div>
+
+        </div>
+    </header>
+
+    <main class="main-content">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <!-- Add your footer content here -->
+        <p>&copy; 2024 Masterworks</p>
+    </footer>
+</body>
 </html>

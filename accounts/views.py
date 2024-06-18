@@ -1,3 +1,4 @@
+#accounts/views.py
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
@@ -6,6 +7,8 @@ from django.views.generic import CreateView
 from django.views.generic.edit import UpdateView
 from .forms import ProfileForm
 from .models import Profile
+from django.shortcuts import render
+
 
 
 class SignUpView(CreateView):
@@ -27,3 +30,7 @@ def edit_profile(request):
         form = ProfileForm(instance=profile)
 
     return render(request, 'accounts/edit_profile.html', {'form': form})
+
+@login_required
+def profile(request):
+    return render(request, 'accounts/profile.html')
