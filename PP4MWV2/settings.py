@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "workshops.apps.WorkshopsConfig",
     "purchase.apps.PurchaseConfig",
     "other_pages.apps.OtherPagesConfig"
+    "payments"
 ]
 
 MIDDLEWARE = [
