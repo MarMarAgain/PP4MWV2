@@ -27,3 +27,15 @@ __pycache__/
 # Ignore sensitive or environment-specific files
 .env
 .env.*
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django stuff:
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
