@@ -19,16 +19,19 @@ from django.conf.urls.static import static
 from django.urls import path, include
 from django.contrib import admin
 from django.views.generic import TemplateView
-from purchase.views import PaymentView
+from purchase import views as purchase_views
+
+
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path("accounts/", include("accounts.urls")),
-    path("accounts/", include("django.contrib.auth.urls")),
-    path("", TemplateView.as_view(template_name="home.html"), name="home"),
-    path('workshops/', include('workshops.urls')),
-    path('payments/', include('purchase.urls')),
-    path('landing/', include('other_pages.urls')),
+   path('admin/', admin.site.urls),
+   path("users/", include("users.urls")),
+   path("users/", include("django.contrib.auth.urls")),
+   path("", TemplateView.as_view(template_name="home.html"), name="home"),
+   path('workshops/', include('workshops.urls')),
+   path('payments/', include('purchase.urls')),
+   path('landing/', include('other_pages.urls')),
+   path('cart/', purchase_views.cart, name='cart'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
