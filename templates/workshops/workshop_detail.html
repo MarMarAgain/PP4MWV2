@@ -2,121 +2,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Workshop Details</title>
-   <script src="https://kit.fontawesome.com/76ccc5dbcf.js" crossorigin="anonymous"></script>
-   <link rel="stylesheet" href="{% static 'workshop_static/css/workshop_styles.css' %}">
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workshop Details</title>
+    <script src="https://kit.fontawesome.com/76ccc5dbcf.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'workshop_static/css/workshop_styles.css' %}">
 </head>
 <body>
-   <header class="header">
-       <div class="sidebar">
-           <h2 class="sidebar-title">Masterworks</h2>
-           <nav class="nav">
-               <a href="#about-text" class="nav-link">About</a>
-               <a href="{% url 'workshop_list' %}" class="nav-link">Workshops</a>
-               <a href="#contact" class="nav-link">Contact</a>
-               {% if user.is_authenticated %}
-                   <a href="{% url 'profile' %}" class="nav-link">Profile</a>
-                   <a href="{% url 'cart' %}" class="nav-link">Cart</a>
-                   <a href="{% url 'logout' %}" class="nav-link login">Log out</a>
-               {% else %}
-                   <a href="{% url 'login' %}" class="nav-link login">Log in</a>
-               {% endif %}
-           </nav>
-       </div>
-   </header>
-   <main class="main-content">
-       <div class="container">
-           <section class="workshop-detail">
-               <img src="{{ workshop.image.url }}" alt="{{ workshop.title }}" class="workshop-image">
-               <div class="workshop-info">
-                   <h2 class="workshop-title">{{ workshop.title }}</h2>
-                   <p class="additional-info">{{ workshop.category }}, {{ workshop.runtime }}</p>
-                   <p class="workshop-subtitle">{{ workshop.subtitle }}</p>
-                   <p class="workshop-price">€{{ workshop.price }}</p>
-                   <p class="workshop-description">About<br>{{ workshop.description }}</p>
-                  
-                   <!-- Add to Cart Form -->
-                   <form id="add-to-cart-form" method="POST" action="{% url 'add_to_cart' workshop.id %}">
-                       {% csrf_token %}
-                       <input type="hidden" name="date_time" value="your_date_time_value">
-                       <button type="submit">Add to Cart</button>
-                   </form>
-                   <div id="add-to-cart-response"></div>
-               </div>
-           </section>
-           <section class="other-workshops">
-               <h3 class="section-title">Other Workshops</h3>
-               <div class="workshop-list">
-                   {% for workshop in workshops %}
-                       <div class="workshop-item">
-                           {% if workshop.image %}
-                               <img src="{{ workshop.image.url }}" alt="{{ workshop.title }}" class="workshop-thumb">
-                           {% else %}
-                               <p>No Image Available</p>
-                           {% endif %}
-                           <a href="{% url 'workshop_detail' workshop_id=workshop.id %}" class="workshop-name">{{ workshop.title }}</a>
-                           <p class="workshop-category">{{ workshop.category }}</p>
-                           <p class="workshop-price">€{{ workshop.price }}</p>
-                           <p class="workshop-runtime">Runtime: {{ workshop.runtime }}</p>
-                       </div>
-                   {% endfor %}
-               </div>
-           </section>
-       </div>
-   </main>
-   <footer class="footer" id="contact">
-       <div class="container">
-           <div class="footer-section">
-               <h4>Site name</h4>
-               <div class="footer-links">
-                   <p>Topic</p>
-                   <p>Topic</p>
-                   <p>Topic</p>
-               </div>
-           </div>
-           <div class="footer-section">
-               <p>Page</p>
-               <p>Page</p>
-               <p>Page</p>
-           </div>
-           <div class="footer-section">
-               <p>Page</p>
-               <p>Page</p>
-               <p>Page</p>
-           </div>
-           <div class="footer-social">
-               <a href="#"><i class="fab fa-facebook-f"></i></a>
-               <a href="#"><i class="fab fa-linkedin-in"></i></a>
-               <a href="#"><i class="fab fa-youtube"></i></a>
-               <a href="#"><i class="fab fa-instagram"></i></a>
-           </div>
-       </div>
-   </footer>
-   <script src="{% static 'workshop_static/js/scripts.js' %}"></script>
+    <header class="header">
+        <div class="sidebar">
+            <h2 class="sidebar-title">Masterworks</h2>
+            <nav class="nav">
+                <a href="#about-text" class="nav-link">About</a>
+                <a href="{% url 'workshop_list' %}" class="nav-link">Workshops</a>
+                <a href="#contact" class="nav-link">Contact</a>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'profile' %}" class="nav-link">Profile</a>
+                    <a href="{% url 'cart' %}" class="nav-link">Cart</a>
+                    <a href="{% url 'logout' %}" class="nav-link login">Log out</a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="nav-link login">Log in</a>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+    <main class="main-content">
+        <div class="container">
+            <section class="workshop-detail">
+                <img src="{{ workshop.image.url }}" alt="{{ workshop.title }}" class="workshop-image">
+                <div class="workshop-info">
+                    <h2 class="workshop-title">{{ workshop.title }}</h2>
+                    <p class="additional-info">{{ workshop.category }}, {{ workshop.duration }}</p>
+                    <p class="workshop-price">€{{ workshop.price }}</p>
+                    <p class="workshop-description">About<br>{{ workshop.description }}</p>
+                    <form method="POST" action="{% url 'add_to_cart' workshop_id=workshop.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="add-to-cart">Add to Cart</button>
+                    </form>
+                </div>
+            </section>
+            <section class="other-workshops">
+                <h3 class="section-title">Other Workshops</h3>
+                <div class="workshop-list">
+                    {% for other_workshop in workshops %}
+                        <div class="workshop-item">
+                            {% if other_workshop.image %}
+                                <img src="{{ other_workshop.image.url }}" alt="{{ other_workshop.title }}" class="workshop-thumb">
+                            {% else %}
+                                <p>No Image Available</p>
+                            {% endif %}
+                            <a href="{% url 'workshop_detail' workshop_id=other_workshop.id %}" class="workshop-name">{{ other_workshop.title }}</a>
+                            <p class="workshop-category">{{ other_workshop.category }}</p>
+                            <p class="workshop-price">€{{ other_workshop.price }}</p>
+                            <p class="workshop-runtime">Runtime: {{ other_workshop.duration }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </section>
+        </div>
+    </main>
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="footer-section">
+                <h4>Site name</h4>
+                <div class="footer-links">
+                    <p>Topic</p>
+                    <p>Topic</p>
+                    <p>Topic</p>
+                </div>
+            </div>
+            <div class="footer-section">
+                <p>Page</p>
+                <p>Page</p>
+                <p>Page</p>
+            </div>
+            <div class="footer-section">
+                <p>Page</p>
+                <p>Page</p>
+                <p>Page</p>
+            </div>
+            <div class="footer-social">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+    <script src="{% static 'workshop_static/js/scripts.js' %}"></script>
 </body>
-<script>
-   $(document).ready(function() {
-       $('#add-to-cart-form').on('submit', function(e) {
-           e.preventDefault();
-           $.ajax({
-               type: 'POST',
-               url: $(this).attr('action'),
-               data: $(this).serialize(),
-               success: function(response) {
-                   $('#add-to-cart-response').html('<p>' + response.message + '</p>');
-               },
-               error: function(response) {
-                   $('#add-to-cart-response').html('<p>' + response.responseJSON.message + '</p>');
-               }
-           });
-       });
-   });
-</script>
 </html>
 
+            });
+        });
+    </script>
+</body>
+</html>
 
 
 

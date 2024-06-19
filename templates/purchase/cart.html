@@ -3,127 +3,100 @@
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'landing/cart.css' %}">
 
-    
-  <main class="main-content">
+ <main class="main-content">
     <section>
-        <!-- Add workshop to cart as item -->
-           <div class="workshop-list">
-               {% for workshop_item in cart_items %}
-                   <div class="workshop-item">
-                       {% if workshop_item.workshop.image %}
-                           <img src="{{ workshop_item.workshop.image.url }}" alt="{{ workshop_item.workshop.title }}" class="workshop-thumb">
-                       {% else %}
-                           <p>No Image Available</p>
-                       {% endif %}
-                       <a href="{% url 'workshop_detail' workshop_id=workshop_item.workshop.id %}" class="workshop-name">{{ workshop_item.workshop.title }}</a>
-                       <p class="workshop-category">{{ workshop_item.workshop.category }}</p>
-                       <p class="workshop-price">€{{ workshop_item.workshop.price }}</p>
-                       <p class="workshop-runtime">Runtime: {{ workshop_item.workshop.runtime }}</p>
-                   </div>
-               {% empty %}
-                   <p>No items in cart.</p>
-               {% endfor %}
-           </div>
+        <div class="workshop-list">
+            {% for workshop_item in cart_items %}
+                <div class="workshop-item">
+                    {% if workshop_item.workshop.image %}
+                        <img src="{{ workshop_item.workshop.image.url }}" alt="{{ workshop_item.workshop.title }}" class="workshop-thumb">
+                    {% else %}
+                        <p>No Image Available</p>
+                    {% endif %}
+                    <a href="{% url 'workshop_detail' workshop_id=workshop_item.workshop.id %}" class="workshop-name">{{ workshop_item.workshop.title }}</a>
+                    <p class="workshop-category">{{ workshop_item.workshop.category }}</p>
+                    <p class="workshop-price">€{{ workshop_item.workshop.price }}</p>
+                    <p class="workshop-runtime">Runtime: {{ workshop_item.workshop.runtime }}</p>
+                </div>
+            {% empty %}
+                <p>No items in cart.</p>
+            {% endfor %}
+        </div>
     </section>
 
     <div class="cart-container">
-   <div class="cart-content">
-       <ul class="cart-items">
-           {% for item in cart_items %}
-               <li class="cart-item">
-                   <img src="{{ item.workshop.image.url }}" alt="{{ item.workshop.title }}">
-                   <div class="item-details">
-                       <h3>{{ item.workshop.title }}</h3>
-                       <p>{{ item.date_time }} - €{{ item.workshop.price }} {% if item.paid %}<span class="paid">Paid</span>{% endif %}</p>
-                       <p>Quantity: {{ item.quantity }}</p>
-                       <a href="#" class="remove-item">Remove</a>
-                   </div>
-               </li>
-           {% empty %}
-               <li>Your cart is empty.</li>
-           {% endfor %}
-       </ul>
-       <a href="{% url 'workshop_list' %}">Continue Shopping</a>
-   </div>
-   <div class="cart-sidebar">
-       <h3>Details</h3>
-       <textarea class="details-textarea" placeholder="Enter any special details here..."></textarea>
-
-
-       <h3>Date</h3>
-       <select class="time-dropdown">
-           <option value="7th June 2024" selected>9:30 am</option>
-           <option value="8th June 2024">10:30 am</option>
-           <option value="9th June 2024">11:30 am</option>
-       </select>
-
-
-       <h3>Time</h3>
-       <select class="time-dropdown">
-           <option value="9:30 am" selected>9:30 am</option>
-           <option value="10:30 am">10:30 am</option>
-           <option value="11:30 am">11:30 am</option>
-       </select>
-
-
-       <button class="save-settings">Save settings</button>
-       <button class="cancel-workshop">Cancel workshop</button>
-   </div>
+        <div class="cart-content">
+            <ul class="cart-items">
+                {% for item in cart_items %}
+                    <li class="cart-item">
+                        <img src="{{ item.workshop.image.url }}" alt="{{ item.workshop.title }}">
+                        <div class="item-details">
+                            <h3>{{ item.workshop.title }}</h3>
+                            <p>{{ item.date_time }} - €{{ item.workshop.price }} {% if item.paid %}<span class="paid">Paid</span>{% endif %}</p>
+                            <p>Quantity: {{ item.quantity }}</p>
+                            <a href="#" class="remove-item">Remove</a>
+                        </div>
+                    </li>
+                {% empty %}
+                    <li>Your cart is empty.</li>
+                {% endfor %}
+            </ul>
+            <a href="{% url 'workshop_list' %}">Continue Shopping</a>
+        </div>
+        
+    </div>
 </main>
 
-
 <footer class="footer" id="contact">
-   <div class="container">
-       <div class="footer-section">
-           <h4>Site name</h4>
-           <div class="footer-links">
-               <p>Topic</p>
-               <p>Topic</p>
-               <p>Topic</p>
-           </div>
-       </div>
-       <div class="footer-section">
-           <p>Page</p>
-           <p>Page</p>
-           <p>Page</p>
-       </div>
-       <div class="footer-section">
-           <p>Page</p>
-           <p>Page</p>
-           <p>Page</p>
-       </div>
-       <div class="footer-social">
-           <a href="#"><i class="fab fa-facebook-f"></i></a>
-           <a href="#"><i class="fab fa-linkedin-in"></i></a>
-           <a href="#"><i class="fab fa-youtube"></i></a>
-           <a href="#"><i class="fab fa-instagram"></i></a>
-       </div>
-   </div>
+    <div class="container">
+        <div class="footer-section">
+            <h4>Site name</h4>
+            <div class="footer-links">
+                <p>Topic</p>
+                <p>Topic</p>
+                <p>Topic</p>
+            </div>
+        </div>
+        <div class="footer-section">
+            <p>Page</p>
+            <p>Page</p>
+            <p>Page</p>
+        </div>
+        <div class="footer-section">
+            <p>Page</p>
+            <p>Page</p>
+            <p>Page</p>
+        </div>
+        <div class="footer-social">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+    </div>
 </footer>
-
 
 <script src="{% static 'workshop_static/js/scripts.js' %}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-   $(document).ready(function() {
-       $('#add-to-cart-form').on('submit', function(e) {
-           e.preventDefault();
-           $.ajax({
-               type: 'POST',
-               url: $(this).attr('action'),
-               data: $(this).serialize(),
-               success: function(response) {
-                   $('#add-to-cart-response').html('<p>' + response.message + '</p>');
-               },
-               error: function(response) {
-                   $('#add-to-cart-response').html('<p>' + response.responseJSON.message + '</p>');
-               }
-           });
-       });
-   });
+    $(document).ready(function() {
+        $('#add-to-cart-form').on('submit', function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'),
+                data: $(this).serialize(),
+                success: function(response) {
+                    $('#add-to-cart-response').html('<p>' + response.message + '</p>');
+                },
+                error: function(response) {
+                    $('#add-to-cart-response').html('<p>' + response.responseJSON.message + '</p>');
+                }
+            });
+        });
+    });
 </script>
-
-
 {% endblock %}
+
 
 
