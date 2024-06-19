@@ -60,6 +60,6 @@ def add_to_cart(request, workshop_id, date_time):
 @login_required
 def cart_view(request):
     cart_items = CartItem.objects.filter(user=request.user)
-    return render(request, 'workshops/cart.html', {'cart_items': cart_items})
+    return render(request, 'workshops/../templates/purchase/cart.html', {'cart_items': cart_items})
 
 
