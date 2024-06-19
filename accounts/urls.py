@@ -6,3 +6,4 @@ urlpatterns = [
     path('edit-profile/', edit_profile, name='edit_profile'),
     path('profile/', profile, name='profile'),
 ]
+#checing updates with github
