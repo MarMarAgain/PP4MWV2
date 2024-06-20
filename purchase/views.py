@@ -6,6 +6,8 @@ from workshops.models import Workshop
 from datetime import datetime
 from .models import SimulatedPayment
 from django.views.generic import TemplateView
+from django.views.decorators.http import require_POST
+
 
 @login_required
 def add_to_cart(request, workshop_id):
@@ -36,27 +38,12 @@ def add_to_cart(request, workshop_id):
 class PaymentView(TemplateView):
     template_name = 'purchase/payment_form.html'
 
-@login_required
-def add_to_cart(request, workshop_id):
-    workshop = get_object_or_404(Workshop, pk=workshop_id)
-    date_time = request.GET.get('date_time')
 
-    cart, created = Cart.objects.get_or_create(user=request.user)
-    cart_item, created = CartItem.objects.get_or_create(
-        cart=cart,
-        workshop=workshop,
-        date_time=date_time,
-        defaults={'quantity': 1}
-    )
-
-    if not created:
-        cart_item.quantity += 1
-        cart_item.save()
-
-    if request.is_ajax():
-        return JsonResponse({'message': 'Workshop added to cart successfully!'})
-
-    return redirect('cart')
+@require_POST
+def remove_cart_item(request, item_id):
+    cart_item = get_object_or_404(CartItem, id=item_id)
+    cart_item.delete()
+    return JsonResponse({'success': True})
 
 @login_required
 def cart(request):

@@ -4,28 +4,6 @@
 <link rel="stylesheet" type="text/css" href="{% static 'landing/cart.css' %}">
 
 <main class="main-content">
-    <section>
-        <div class="workshop-list">
-            {% for cart_item in cart.items.all %}
-                <div class="workshop-item">
-                    {% if cart_item.workshop.image %}
-                        <img src="{{ cart_item.workshop.image.url }}" alt="{{ cart_item.workshop.title }}" class="workshop-thumb">
-                    {% else %}
-                        <p>No Image Available</p>
-                    {% endif %}
-                    <h3>{{ cart_item.workshop.title }}</h3>
-                    <p>{{ cart_item.workshop.category }}</p>
-                    <p>Price: €{{ cart_item.workshop.price }}</p>
-                    <p>Date and Time: {{ cart_item.date_time }}</p>
-                    <p>Quantity: {{ cart_item.quantity }}</p>
-                    <a href="#" class="remove-item">Remove</a>
-                </div>
-            {% empty %}
-                <p>No items in cart.</p>
-            {% endfor %}
-        </div>
-    </section>
-
     <div class="cart-container">
         <div class="cart-content">
             <ul class="cart-items">
@@ -41,7 +19,13 @@
                             <p>Price: €{{ cart_item.workshop.price }}</p>
                             <p>Date and Time: {{ cart_item.date_time }}</p>
                             <p>Quantity: {{ cart_item.quantity }}</p>
-                            <a href="#" class="remove-item">Remove</a>
+
+                            <!-- Form for removing item from cart -->
+                            <form class="remove-item-form" action="{% url 'remove_cart_item' cart_item.id %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="item_id" value="{{ cart_item.id }}">
+                                <button type="submit" class="remove-item-btn">Remove</button>
+                            </form>
                         </div>
                     </li>
                 {% empty %}
@@ -86,26 +70,27 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     $(document).ready(function() {
-        $('.remove-item').on('click', function(e) {
+        // Submit form when Remove button is clicked
+        $('.remove-item-btn').on('click', function(e) {
             e.preventDefault();
-            var workshopId = $(this).data('workshop-id');
-            
-            //  AJAX call to remove item from cart and update UI
-             $.ajax({
-                 type: 'POST',
-                 url: '/remove_from_cart/',
-                 data: {
-                     workshop_id: workshopId,
-                     csrfmiddlewaretoken: '{{ csrf_token }}'
-                 },
-                 success: function(response) {
-                     // Handle success, update UI, etc.
-                 },
-                 error: function(response) {
-                     // Handle errors
-                 }
+            var form = $(this).closest('form');
+            $.ajax({
+                type: form.attr('method'),
+                url: form.attr('action'),
+                data: form.serialize(),
+                success: function(response) {
+                    if (response.success) {
+                        form.closest('.cart-item').remove(); // Remove the item from UI
+                    } else {
+                        console.error('Failed to remove item from cart');
+                    }
+                },
+                error: function(response) {
+                    console.error('Error removing item from cart');
+                }
             });
         });
     });
 </script>
 {% endblock %}
+
