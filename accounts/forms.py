@@ -1,5 +1,23 @@
 from django import forms
 from .models import Profile
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+
+class CustomUserCreationForm(UserCreationForm):
+    full_name = forms.CharField(max_length=100, required=True, help_text='Required.')
+    phone_number = forms.CharField(max_length=15, required=True, help_text='Required.')
+
+    class Meta:
+        model = User
+        fields = ('username', 'full_name', 'phone_number', 'password1', 'password2')
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.email = self.cleaned_data['email']
+        if commit:
+            user.save()
+            Profile.objects.create(user=user, full_name=self.cleaned_data['full_name'], phone_number=self.cleaned_data['phone_number'])
+        return user
 
 class ProfileForm(forms.ModelForm):
    class Meta:
