@@ -3,20 +3,22 @@
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'landing/cart.css' %}">
 
- <main class="main-content">
+<main class="main-content">
     <section>
         <div class="workshop-list">
-            {% for workshop_item in cart_items %}
+            {% for cart_item in cart.items.all %}
                 <div class="workshop-item">
-                    {% if workshop_item.workshop.image %}
-                        <img src="{{ workshop_item.workshop.image.url }}" alt="{{ workshop_item.workshop.title }}" class="workshop-thumb">
+                    {% if cart_item.workshop.image %}
+                        <img src="{{ cart_item.workshop.image.url }}" alt="{{ cart_item.workshop.title }}" class="workshop-thumb">
                     {% else %}
                         <p>No Image Available</p>
                     {% endif %}
-                    <a href="{% url 'workshop_detail' workshop_id=workshop_item.workshop.id %}" class="workshop-name">{{ workshop_item.workshop.title }}</a>
-                    <p class="workshop-category">{{ workshop_item.workshop.category }}</p>
-                    <p class="workshop-price">€{{ workshop_item.workshop.price }}</p>
-                    <p class="workshop-runtime">Runtime: {{ workshop_item.workshop.runtime }}</p>
+                    <h3>{{ cart_item.workshop.title }}</h3>
+                    <p>{{ cart_item.workshop.category }}</p>
+                    <p>Price: €{{ cart_item.workshop.price }}</p>
+                    <p>Date and Time: {{ cart_item.date_time }}</p>
+                    <p>Quantity: {{ cart_item.quantity }}</p>
+                    <a href="#" class="remove-item">Remove</a>
                 </div>
             {% empty %}
                 <p>No items in cart.</p>
@@ -27,13 +29,18 @@
     <div class="cart-container">
         <div class="cart-content">
             <ul class="cart-items">
-                {% for item in cart_items %}
+                {% for cart_item in cart.items.all %}
                     <li class="cart-item">
-                        <img src="{{ item.workshop.image.url }}" alt="{{ item.workshop.title }}">
+                        {% if cart_item.workshop.image %}
+                            <img src="{{ cart_item.workshop.image.url }}" alt="{{ cart_item.workshop.title }}">
+                        {% else %}
+                            <p>No Image Available</p>
+                        {% endif %}
                         <div class="item-details">
-                            <h3>{{ item.workshop.title }}</h3>
-                            <p>{{ item.date_time }} - €{{ item.workshop.price }} {% if item.paid %}<span class="paid">Paid</span>{% endif %}</p>
-                            <p>Quantity: {{ item.quantity }}</p>
+                            <h3>{{ cart_item.workshop.title }}</h3>
+                            <p>Price: €{{ cart_item.workshop.price }}</p>
+                            <p>Date and Time: {{ cart_item.date_time }}</p>
+                            <p>Quantity: {{ cart_item.quantity }}</p>
                             <a href="#" class="remove-item">Remove</a>
                         </div>
                     </li>
@@ -43,7 +50,6 @@
             </ul>
             <a href="{% url 'workshop_list' %}">Continue Shopping</a>
         </div>
-        
     </div>
 </main>
 
@@ -80,23 +86,26 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     $(document).ready(function() {
-        $('#add-to-cart-form').on('submit', function(e) {
+        $('.remove-item').on('click', function(e) {
             e.preventDefault();
-            $.ajax({
-                type: 'POST',
-                url: $(this).attr('action'),
-                data: $(this).serialize(),
-                success: function(response) {
-                    $('#add-to-cart-response').html('<p>' + response.message + '</p>');
-                },
-                error: function(response) {
-                    $('#add-to-cart-response').html('<p>' + response.responseJSON.message + '</p>');
-                }
+            var workshopId = $(this).data('workshop-id');
+            
+            //  AJAX call to remove item from cart and update UI
+             $.ajax({
+                 type: 'POST',
+                 url: '/remove_from_cart/',
+                 data: {
+                     workshop_id: workshopId,
+                     csrfmiddlewaretoken: '{{ csrf_token }}'
+                 },
+                 success: function(response) {
+                     // Handle success, update UI, etc.
+                 },
+                 error: function(response) {
+                     // Handle errors
+                 }
             });
         });
     });
 </script>
 {% endblock %}
-
-
-
