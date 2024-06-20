@@ -1,38 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <meta charset="UTF-8">
-   <title>{% block title %}Masterworks{% endblock %}</title>
-   {% load static %}
-   <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
-   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-   {% block extra_head %}{% endblock %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Masterworks{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+    <script src="https://kit.fontawesome.com/76ccc5dbcf.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    {% block extra_head %}{% endblock %}
 </head>
+
 <body>
-   <header class="header container">
-       <h1 class="site-title">Ocean Of Notions</h1>
-       <nav class="nav">
-          <a href="{% url 'landing_page' %}#about_text">About</a>
-          <a href="{% url 'workshop_list' %}" class="nav-link">Workshops</a>
-          <a href="#contact" class="nav-link">Contact</a>
-          {% if user.is_authenticated %}
-          <a href="{% url 'profile' %}" class="nav-link">Profile</a>
-          <a href="{% url 'cart' %}" class="nav-link">Cart</a>
-          <a href="{% url 'logout' %}" class="nav-link login">Log out</a>
-          {% else %}
-           <a href="{% url 'login' %}" class="nav-link login">Log in</a>
-          {% endif %}
-       </nav>
-   </header>
+    <header class="header container">
+        <img src="{% static 'project images/black logo.svg' %}" alt="Ocean Of Notions Logo" class="logo">
+        <nav class="nav">
+            <a href="{% url 'landing_page' %}"  class="nav-link">Home</a>
+            <a href="{% url 'workshop_list' %}" class="nav-link">Workshops</a>
+            <a href="#contact" class="nav-link">Contact</a>
+            {% if user.is_authenticated %}
+            <a href="{% url 'Profile' %}" class="nav-link">Profile</a>
+            <a href="{% url 'cart' %}" class="nav-link">Cart</a>
+            <a href="{% url 'logout' %}" class="nav-link login">Log out</a>
+            {% else %}
+            <a href="{% url 'login' %}" class="nav-link login">Log in</a>
+            {% endif %}
+        </nav>
+    </header>
 
-   <main>
-       {% block content %}{% endblock %}
-   </main>
+    {% block content %}{% endblock %}
+    
+  <footer class="footer" id="contact">
+    <div class="container footer-section">
+        <div class="footer-contact">
+            <h2>Contact</h2>
+            <div class="footer-contact-items">
+                <p>Email: <a href="mailto:oceanofnotions@gmail.com">oceanofnotions@gmail.com</a></p>
+                <p>Phone: 021 123 4567</p>
+                <p>Address: 09876, T12 NNJK</p>
+            </div>
+            <p>Masterworks is a subsidiary of Oceans Of Notions Theatre Company</p>
+        </div>
+        
+        <div class="footer-social ml-auto">
+            <a href="#"><i class="fab fa-facebook-f fa-2x"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in fa-2x"></i></a>
+            <a href="#"><i class="fab fa-youtube fa-2x"></i></a>
+            <a href="#"><i class="fab fa-instagram fa-2x"></i></a>
+        </div>
+    </div>
+</footer>
 
-   <footer>
-       <p>&copy; 2024 Masterworks</p>
-   </footer>
+
+
 </body>
 </html>
+
+
 
 
