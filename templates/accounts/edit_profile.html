@@ -1,64 +1,33 @@
-<!--templates/accounts/edit_profile.html-->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Profile</title>
-    {% load static %}
+{% extends 'base.html' %}
+
+{% load static %}
+{% block extra_head %}
     <link rel="stylesheet" href="{% static 'profiles/css/edit_profile.css' %}">
-    <script src="https://kit.fontawesome.com/76ccc5dbcf.js" crossorigin="anonymous"></script>
-</head>
-<body>
-    <header class="header">
-        <div class="container">
-            <h1 class="site-title">Ocean Of Notions</h1>
-            <nav class="nav">
-                <a href="#" class="nav-link">About</a>
-                <a href="#" class="nav-link">Workshops</a>
-                <a href="#" class="nav-link">Contact</a>
-                <a href="#" class="nav-link login">Login</a>
-            </nav>
+    <script src="{% static 'js/edit_profile.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <h1>Edit profile</h1>
+    <div class="profile-section">
+        <div class="profile-header">
+            <img id="profile-photo" src="{% if user.profile.profile_picture %}{{ user.profile.profile_picture.url }}{% else %}{% static 'profiles/default_profile.jpg' %}{% endif %}" alt="Profile Photo" class="profile-photo">
+            <div class="profile-info">
+                <p class="profile-name">{{ user.get_full_name }}</p>
+                <p class="profile-phone">{{ user.profile.phone_number }}</p>
+                <label for="id_profile_picture" class="profile-picture-label">Change profile picture</label>
+                <input type="file" id="id_profile_picture" name="profile_picture" class="hidden-file-input">
+            </div>
         </div>
-    </header>
-    
-    <div class="sidebar">
-        <h2 class="sidebar-title">Masterworks</h2>
-        <nav class="sidebar-nav">
-            <a href="#" class="sidebar-link active">
-                <i class="fa-solid fa-user"></i>
-                Profile
-            </a>
-            <a href="#" class="sidebar-link">
-                <i class="fa-solid fa-receipt"></i>
-                Bookings
-            </a>
-            <a href="#" class="sidebar-link">
-                <i class="fa-solid fa-bell"></i>
-                Notifications
-            </a>
-            <a href="#" class="sidebar-link">
-                <i class="fa-solid fa-cart-shopping"></i>
-                Cart
-            </a>
-            <a href="#" class="sidebar-link">
-                <i class="fa-solid fa-message"></i>
-                Messages
-            </a>
-        </nav>
-    </div>
-    <div class="main-content">
-        <h1>Edit profile</h1>
-        <div class="profile-section">
-            <div class="profile-header">
-                <img src="https://via.placeholder.com/64" alt="Profile Photo" class="profile-photo">
-                <div class="profile-info">
-                    <p class="profile-name">Helena Hills</p>
-                    <a href="#" class="change-photo-link">Change profile photo</a>
-                </div>
+        <div class="details-form-container">
+            <div class="user-details">
+                <h3>User Details</h3>
+                <p><strong>Full Name:</strong> {{ user.get_full_name }}</p>
+                <p><strong>Email:</strong> {{ user.email }}</p>
+                <p><strong>Phone Number:</strong> {{ user.profile.phone_number }}</p>
             </div>
             <div class="profile-form">
-                <form method="post">
+                <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="form-group">
                         <label for="id_school_details">School Details:</label>
@@ -73,7 +42,13 @@
             </div>
         </div>
     </div>
-</body>
-</html>
+</div>
+
+{% if message %}
+<div class="alert alert-success mt-3" role="alert">
+    {{ message }}
+</div>
+{% endif %}
+{% endblock %}
 
 

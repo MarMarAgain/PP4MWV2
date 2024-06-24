@@ -8,10 +8,6 @@ from datetime import datetime
 from .models import Booking  # Booking model import changed
 
 
-
-
-
-
 def workshop_list(request):
    workshops = Workshop.objects.all()
    return render(request, 'workshops/workshop_list.html', {'workshops': workshops})
