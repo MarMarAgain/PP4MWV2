@@ -14,7 +14,7 @@
     <header class="header container">
         <img src="{% static 'project images/black logo.svg' %}" alt="Ocean Of Notions Logo" class="logo">
         <nav class="nav">
-            <a href="{% url 'landing_page' %}"  class="nav-link">Home</a>
+            <a href="{% url 'landing_page' %}" class="nav-link">Home</a>
             <a href="{% url 'workshop_list' %}" class="nav-link">Workshops</a>
             <a href="#contact" class="nav-link">Contact</a>
             {% if user.is_authenticated %}
@@ -27,34 +27,40 @@
         </nav>
     </header>
 
+    {% if messages %}
+    <div class="container mt-3">
+        {% for message in messages %}
+            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %}" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
     {% block content %}{% endblock %}
     
-  <footer class="footer" id="contact">
-    <div class="container footer-section">
-        <div class="footer-contact">
-            <h2>Contact</h2>
-            <div class="footer-contact-items">
-                <p>Email: <a href="mailto:oceanofnotions@gmail.com">oceanofnotions@gmail.com</a></p>
-                <p>Phone: 021 123 4567</p>
-                <p>Address: 09876, T12 NNJK</p>
+    <footer class="footer" id="contact">
+        <div class="container footer-section">
+            <div class="footer-contact">
+                <h2>Contact</h2>
+                <div class="footer-contact-items">
+                    <p>Email: <a href="mailto:oceanofnotions@gmail.com">oceanofnotions@gmail.com</a></p>
+                    <p>Phone: 021 123 4567</p>
+                    <p>Address: 09876, T12 NNJK</p>
+                </div>
+                <p>Masterworks is a subsidiary of Oceans Of Notions Theatre Company</p>
             </div>
-            <p>Masterworks is a subsidiary of Oceans Of Notions Theatre Company</p>
+            
+            <div class="footer-social ml-auto">
+                <a href="#"><i class="fab fa-facebook-f fa-2x"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in fa-2x"></i></a>
+                <a href="#"><i class="fab fa-youtube fa-2x"></i></a>
+                <a href="#"><i class="fab fa-instagram fa-2x"></i></a>
+            </div>
         </div>
-        
-        <div class="footer-social ml-auto">
-            <a href="#"><i class="fab fa-facebook-f fa-2x"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in fa-2x"></i></a>
-            <a href="#"><i class="fab fa-youtube fa-2x"></i></a>
-            <a href="#"><i class="fab fa-instagram fa-2x"></i></a>
-        </div>
-    </div>
-</footer>
-
-
+    </footer>
 
 </body>
 </html>
-
-
 
 
