@@ -1,31 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Workshop List</title>
-   {% load static %}
-   <script src="https://kit.fontawesome.com/76ccc5dbcf.js" crossorigin="anonymous"></script>
-   <link rel="stylesheet" href="{% static 'workshop_static/css/workshop_styles.css' %}">
-</head>
-<body>
-   <header class="header">
-       <div class="container">
-           <h1 class="site-title">Ocean Of Notions</h1>
-           <nav class="nav">
-               <a href="#about-text" class="nav-link">About</a>
-               <a href="{% url 'workshop_list' %}" class="nav-link">Workshops</a>
-               <a href="#contact" class="nav-link">Contact</a>
-           {% if user.is_authenticated %}
-      <a href="{% url 'Profile' %}" class="nav-link">Profile</a>
-      <a href="{% url 'cart' %}" class="nav-link">Cart</a>
-      <a href="{% url 'logout' %}" class="nav-link login">Log out</a>
-  {% else %}
-      <a href="{% url 'login' %}" class="nav-link login">Log in</a>
-  {% endif %}
-           </nav>
-       </div>
-   </header>
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'workshop_static/css/workshop_styles.css' %}">
+{% endblock %}
+
+{% block content %}
    <main class="main-content">
        <div class="container">
            <section class="other-workshops">
@@ -48,34 +29,6 @@
            </section>
        </div>
    </main>
-   <footer class="footer" id="contact">
-       <div class="container">
-           <div class="footer-section">
-               <h4>Site name</h4>
-               <div class="footer-links">
-                   <p>Topic</p>
-                   <p>Topic</p>
-                   <p>Topic</p>
-               </div>
-           </div>
-           <div class="footer-section">
-               <p>Page</p>
-               <p>Page</p>
-               <p>Page</p>
-           </div>
-           <div class="footer-section">
-               <p>Page</p>
-               <p>Page</p>
-               <p>Page</p>
-           </div>
-           <div class="footer-social">
-               <a href="#"><i class="fab fa-facebook-f"></i></a>
-           <a href="#"><i class="fab fa-linkedin-in"></i></a>
-           <a href="#"><i class="fab fa-youtube"></i></a>
-           <a href="#"><i class="fab fa-instagram"></i></a>
-       </div>
-   </footer>
-</body>
-</html>
+  {% endblock %}
 
 
