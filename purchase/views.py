@@ -6,6 +6,11 @@ from workshops.models import Workshop
 from datetime import datetime
 from django.views.generic import TemplateView
 from django.views.decorators.http import require_POST
+from accounts.models import Profile
+from django.shortcuts import render, redirect
+from django.core.mail import send_mail
+from django.conf import settings
+from .models import Cart
 
 
 @login_required
@@ -53,16 +58,18 @@ def cart(request):
 
     return render(request, 'purchase/cart.html', {'cart': cart})
 
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
-from django.core.mail import send_mail
-from django.conf import settings
-from .models import Cart
 
 @login_required
 def book_now(request):
-    # Retrieve the current user's cart
-    cart = Cart.objects.get(user=request.user)
+    try:
+        cart = Cart.objects.get(user=request.user)
+    except Cart.DoesNotExist:
+        return redirect('cart')  # Redirect to cart or handle error
+
+    # Save booked workshops to user's profile
+    profile = Profile.objects.get_or_create(user=request.user)[0]
+    for item in cart.items.all():
+        profile.booked_workshops.add(item.workshop)
 
     # Prepare email content
     subject = 'Workshop Booking Confirmation'

@@ -41,6 +41,17 @@
                 </form>
             </div>
         </div>
+        <div class="booked-workshops">
+            <h3>Booked Workshops</h3>
+            <ul>
+                {% for workshop in user.profile.booked_workshops.all %}
+                    <li>{{ workshop.title }}</li>
+                    <!-- Add more details as needed -->
+                {% empty %}
+                    <li>No workshops booked yet.</li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
 </div>
 
@@ -50,5 +61,6 @@
 </div>
 {% endif %}
 {% endblock %}
+
 
 
