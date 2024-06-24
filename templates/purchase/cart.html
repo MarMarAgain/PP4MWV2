@@ -32,9 +32,16 @@
                     <li>Your cart is empty.</li>
                 {% endfor %}
             </ul>
+        <!-- Book Now Button -->
+            <form action="{% url 'book_now' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="book-now-btn">Book Now</button>
+            </form>
+        
             <a href="{% url 'workshop_list' %}">Continue Shopping</a>
         </div>
     </div>
+
 </main>
     
 

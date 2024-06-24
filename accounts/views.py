@@ -6,7 +6,6 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from django.contrib.auth.views import LoginView
 from accounts.forms import CustomUserCreationForm, ProfileForm
-from .models import Profile
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
@@ -53,14 +52,22 @@ def edit_profile(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Your profile details have been saved.')
-            return redirect('edit_profile')
+            return redirect('edit_profile')  # Redirect after successful form submission
+        else:
+            messages.error(request, 'Please correct the errors below.')
     else:
         form = ProfileForm(instance=profile)
 
-    return render(request, 'accounts/edit_profile.html', {'form': form})
+    context = {
+        'profile': profile,
+        'form': form,
+    }
+
+    return render(request, 'accounts/edit_profile.html', context)
+
 
 
 @login_required
 def profile(request):
-    return render(request, 'accounts/profile.html')
+    return render(request, 'accounts/edit_profile.html')
 

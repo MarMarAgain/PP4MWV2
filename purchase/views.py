@@ -4,7 +4,6 @@ from django.contrib.auth.decorators import login_required
 from .models import Cart, CartItem
 from workshops.models import Workshop
 from datetime import datetime
-from .models import SimulatedPayment
 from django.views.generic import TemplateView
 from django.views.decorators.http import require_POST
 
@@ -54,20 +53,35 @@ def cart(request):
 
     return render(request, 'purchase/cart.html', {'cart': cart})
 
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
+from django.conf import settings
+from .models import Cart
+
 @login_required
-def initiate_payment(request):
-    workshop_id = request.POST.get('workshop_id')
-    amount = request.POST.get('amount')
-    user = request.user
+def book_now(request):
+    # Retrieve the current user's cart
+    cart = Cart.objects.get(user=request.user)
 
-    # Simulate creating a payment record
-    SimulatedPayment.objects.create(
-        user=user,
-        amount=amount,
-        status='completed'  # Simulate a successful payment for demo purposes
-    )
+    # Prepare email content
+    subject = 'Workshop Booking Confirmation'
+    message = f'You have successfully booked the following workshops:\n\n'
+    for item in cart.items.all():
+        message += f'Workshop: {item.workshop.title}\nDate and Time: {item.date_time}\nPrice: €{item.workshop.price}\nQuantity: {item.quantity}\n\n'
 
-    return redirect('payment_success')  # Redirect to success page
+    # Send email to admin
+    send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, ['oceanofnotions@gmail.com'])
+
+    # Send email to user
+    send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [request.user.email])
+
+    # Clear the cart after successful booking
+    cart.items.all().delete()
+
+    # Redirect to a success page or another view
+    return redirect('payment_successful')  # Adjust this URL name as per your URL configuration
+
 
 @login_required
 def payment_success(request):
