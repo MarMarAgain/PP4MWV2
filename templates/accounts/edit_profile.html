@@ -10,35 +10,34 @@
 <div class="main-content">
     <h1>Edit profile</h1>
 
-<div class="details-form-container">
-            <div class="user-details">
-                <h3>User Details</h3>
-                <p><strong>Full Name:</strong> {{ user.get_full_name }}</p>
-                <p><strong>Email:</strong> {{ user.email }}</p>
-                <p><strong>Phone Number:</strong> {{ user.profile.phone_number }}</p>
-            </div>
-            
-
-    <div class="profile-section">
-        <div class="profile-header">
-            <img id="profile-photo" src="{% if user.profile.profile_picture %}{{ user.profile.profile_picture.url }}{% else %}{% static 'profiles/default_profile.jpg' %}{% endif %}" alt="Profile Photo" class="profile-photo">
-            <div class="profile-info">
-                <p class="profile-name">{{ user.get_full_name }}</p>
-                <p class="profile-phone">{{ user.profile.phone_number }}</p>
-            </div>
+    <div class="details-form-container">
+        <div class="user-details">
+            <h3>User Details</h3>
+            <p><strong>Full Name:</strong> {{ user.get_full_name }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Phone Number:</strong> {{ user.profile.phone_number }}</p>
         </div>
-    
+
+        <div class="profile-section">
+            <div class="profile-header">
+                <img id="profile-photo" src="{% if user.profile.profile_picture %}{{ user.profile.profile_picture.url }}{% else %}{% static 'profiles/default_profile.jpg' %}{% endif %}" alt="Profile Photo" class="profile-photo">
+                <div class="profile-info">
+                    <p class="profile-name">{{ user.get_full_name }}</p>
+                    <p class="profile-phone">{{ user.profile.phone_number }}</p>
+                </div>
+            </div>
+
             <div class="profile-form">
                 <form method="post" enctype="multipart/form-data">
                     <label for="id_profile_picture" class="profile-picture-label">Change profile picture</label>
-                <input type="file" id="id_profile_picture" name="profile_picture" class="hidden-file-input">
+                    <input type="file" id="id_profile_picture" name="profile_picture" class="hidden-file-input">
                     {% csrf_token %}
                     <div class="form-group">
-                        <label for="id_school_details">School Details:</label>
+                        <label for="id_school_details"><strong>School Details:</strong></label>
                         {{ form.school_details }}
                     </div>
                     <div class="form-group">
-                        <label for="id_students_info">My students are:</label>
+                        <label for="id_students_info"><strong>My students are:</strong></label>
                         {{ form.students_info }}
                     </div>
                     <button type="submit" class="save-changes">Save changes</button>
@@ -46,19 +45,34 @@
             </div>
         </div>
     </div>
-    
-<h2>Booked Workshops</h2>
-        <div class="booked-workshops">
-            <ul>
-                {% for workshop in user.profile.booked_workshops.all %}
-                    <li>{{ workshop.title }}</li>
-                    
-                {% empty %}
-                    <li>No workshops booked yet.</li>
-                {% endfor %}
-            </ul>
-        </div>
-    
+
+    <h2>Booked Workshops</h2>
+    <div class="booked-workshops">
+        {% for workshop in user.profile.booked_workshops.all %}
+            <div class="workshop">
+                <div class="workshop-details">
+                    <div class="workshop-image">
+                        <img src="{% static 'path_to_your_workshop_image.jpg' %}" alt="Workshop Image">
+                        <div class="workshop-text">{{ workshop.title }}</div>
+                    </div>
+                    <div class="workshop-info">
+                        <h3>{{ workshop.category }} - {{ workshop.level }}</h3>
+                        <p class="price">{{ workshop.price }}</p>
+                        <p class="about">{{ workshop.description }}</p>
+                    </div>
+                </div>
+                <div class="workshop-action">
+                    <p class="date">{{ workshop.date }}</p>
+                    <form action="{% url 'cancel_workshop' workshop.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="cancel-button">Cancel workshop</button>
+                    </form>
+                </div>
+            </div>
+        {% empty %}
+            <p>No workshops booked yet.</p>
+        {% endfor %}
+    </div>
 </div>
 
 {% if message %}
@@ -67,6 +81,5 @@
 </div>
 {% endif %}
 {% endblock %}
-
 
 

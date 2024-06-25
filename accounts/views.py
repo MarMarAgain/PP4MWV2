@@ -1,13 +1,14 @@
 # accounts/views.py
 
 from django.contrib.auth import login, authenticate
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from django.contrib.auth.views import LoginView
 from accounts.forms import CustomUserCreationForm, ProfileForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from .models import Workshop
 
 
 class SignUpView(CreateView):
@@ -73,3 +74,11 @@ def edit_profile(request):
 def profile(request):
     return render(request, 'accounts/edit_profile.html')
 
+
+def cancel_workshop(request, workshop_id):
+    workshop = get_object_or_404(Workshop, pk=workshop_id)
+
+    workshop.delete()  # Delete the workshop
+
+    # Redirect to a success page or back to the profile page
+    return redirect('edit_profile')
