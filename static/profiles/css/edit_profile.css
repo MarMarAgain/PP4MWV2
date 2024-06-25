@@ -11,14 +11,25 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     max-width: 800px;
     margin: 0 auto;
-    display: flex; /* Flexbox to display items in a row */
-    flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+    display: flex;
+    flex-wrap: wrap;
 }
 
-.profile-header {
+.profile-photo-section {
+    flex-basis: 100%;
     display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 100px;
+}
+
+.profile-label {
+    flex-basis: 100%;
+    display: inline-block;
     align-items: center;
-    margin-bottom: 2rem;
+    align-content: center;
+    margin-bottom: 1rem;
 }
 
 .profile-photo {
@@ -26,60 +37,6 @@
     height: 100px;
     border-radius: 50%;
     margin-right: 1rem;
-}
-
-.profile-info {
-    display: flex;
-    flex-direction: column;
-}
-
-.profile-name {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin: 0;
-}
-
-.change-photo-link:hover {
-    text-decoration: underline;
-}
-
-.details-form-container {
-    display: flex; /* Flexbox to display items in a row */
-    flex: 1; /* Take up remaining space */
-}
-
-.user-details {
-    flex-basis: 50%; /* Width set to 50% of the container */
-    padding-right: 2rem;
-}
-
-.profile-form {
-    flex-basis: 50%;
-}
-
-.profile-form .form-group {
-    margin-bottom: 30px;
-}
-
-
-.save-changes {
-    background-color: teal;
-    color: white;
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 0.5rem;
-    font-size: 1rem;
-    cursor: pointer;
-    align-self: flex-start;
-    margin-top: 30px;
-}
-
-.save-changes:hover{
-    background-color: #362B3D;
-}
-
-.profile-picture-wrapper input[type="file"] {
-    display: none;
 }
 
 .profile-picture-label {
@@ -94,5 +51,58 @@
 
 .profile-picture-label:hover {
     color: #362B3D;
+}
+
+.profile-info {
+    flex-basis: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.user-details {
+    flex-basis: 50%;
+    margin-top: 1rem;
+    padding-left: 1rem;
+}
+
+.user-details h3 {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.booked-workshops {
+    flex-basis: 100%;
+    margin-top: 2rem;
+}
+
+.profile-form-section {
+    flex-basis: 100%;
+    margin-top: 2rem;
+}
+
+.profile-form .form-group {
+    margin-bottom: 20px;
+}
+
+.save-changes {
+    background-color: teal;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.save-changes:hover {
+    background-color: #362B3D;
+}
+
+/* Additional styles for form labels */
+.profile-form label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
 }
 

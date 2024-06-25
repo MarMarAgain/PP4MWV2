@@ -50,6 +50,8 @@ def edit_profile(request):
     if request.method == 'POST':
         form = ProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
+            print("Form is valid")
+            print("Uploaded file:", request.FILES.get('profile_picture'))
             form.save()
             messages.success(request, 'Your profile details have been saved.')
             return redirect('edit_profile')  # Redirect after successful form submission
