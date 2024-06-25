@@ -1,3 +1,16 @@
-<h1>Payment Successful</h1>
-<p>Thank you for your payment!</p>
-<!--potentially expand -->
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'landing/landing.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<h1>Yay! Your workshop is booked!</h1>
+    
+    <h2> Your booked workshop is logged on your profile - we will email you closer to the time to confirm the details</h2>
+    <h3> Please note that the amount payable is due on the day the workshop takes place</h3>
+
+{% endblock %}

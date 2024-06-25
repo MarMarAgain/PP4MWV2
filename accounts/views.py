@@ -78,7 +78,9 @@ def profile(request):
 def cancel_workshop(request, workshop_id):
     workshop = get_object_or_404(Workshop, pk=workshop_id)
 
-    workshop.delete()  # Delete the workshop
+    # Update the workshop status
+    workshop.is_canceled = True
+    workshop.save()
 
     # Redirect to a success page or back to the profile page
     return redirect('edit_profile')

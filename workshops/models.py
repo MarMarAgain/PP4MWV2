@@ -11,6 +11,7 @@ class Workshop(models.Model):
    duration = models.CharField(max_length=50, default='90 minutes')
    date = models.DateField(default=date.today)
    image = models.ImageField(upload_to='workshop_images/', null=True, blank=True)
+   is_canceled = models.BooleanField(default=False)
 
 
    def __str__(self):
