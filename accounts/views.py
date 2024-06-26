@@ -6,9 +6,12 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from django.contrib.auth.views import LoginView
 from accounts.forms import CustomUserCreationForm, ProfileForm
-from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import Workshop
+from django.core.mail import send_mail
+from django.shortcuts import redirect, get_object_or_404
+from workshops.models import Workshop, Booking
+from django.contrib.auth.decorators import login_required
+from django.conf import settings
 
 
 class SignUpView(CreateView):
@@ -75,12 +78,18 @@ def profile(request):
     return render(request, 'accounts/edit_profile.html')
 
 
+
+@login_required
 def cancel_workshop(request, workshop_id):
     workshop = get_object_or_404(Workshop, pk=workshop_id)
 
-    # Update the workshop status
-    workshop.is_canceled = True
-    workshop.save()
+    # Remove the workshop from user's booked workshops
+    request.user.profile.booked_workshops.remove(workshop)
 
-    # Redirect to a success page or back to the profile page
+    # Send email notification to admin
+    subject = f'Workshop Cancellation by {request.user.get_full_name()}'
+    message = f'The user {request.user.get_full_name()} has canceled the workshop: {workshop.title}'
+    send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, ['oceanofnotions@gmail.com'])
+
+    messages.success(request, 'Workshop booking canceled successfully.')
     return redirect('edit_profile')
