@@ -1,3 +1,5 @@
+/* styles.css */
+
 body {
     font-family: "Roboto Light", sans-serif;
     margin: 0;
@@ -10,18 +12,18 @@ body {
     top: 0;
     left: 0;
     right: 0;
-    background-color: #ffffff;
-    z-index: 1000;
+    background-color: #ffffff; /* Background color for header */
+    z-index: 1000; /* Ensure header is on top of other content */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px 20px; /* Padding for header content */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Example box shadow */
 }
 
 .logo {
-    width: 100px;
-    height: auto;
+    width: 100px; /* Adjust logo width */
+    height: auto; /* Maintain aspect ratio */
 }
 
 .nav {
@@ -35,6 +37,7 @@ body {
     border: none;
     cursor: pointer;
     padding: 5px;
+    display: block; /* Ensure burger menu button is always visible */
 }
 
 .burger-icon {
@@ -69,13 +72,13 @@ body {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    display: none;
+    display: none; /* Initially hide nav links */
     position: absolute;
-    top: 60px;
-    right: 20px;
-    background-color: #ffffff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    z-index: 999;
+    top: 60px; /* Adjust top position to fit under header */
+    right: 20px; /* Adjust right position for spacing */
+    background-color: #ffffff; /* Background color for nav links */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Example box shadow */
+    z-index: 999; /* Ensure nav links are above other content */
 }
 
 .nav-links.open {
@@ -96,7 +99,7 @@ body {
 }
 
 .main-content {
-    padding-top: 200px; /* Ensure content starts below header */
+    padding-top: 100px; /* Ensure content starts below header */
     /* Add additional styling for main content */
 }
 
@@ -106,7 +109,7 @@ body {
     text-align: center;
 }
 
-/* Media query for iPad and larger screens */
+/* Media query for iPads and larger screens */
 @media (min-width: 768px) {
     .nav {
         flex-grow: 1; /* Allow nav to grow and occupy remaining space */
@@ -122,7 +125,7 @@ body {
         box-shadow: none; /* Remove box shadow */
     }
 
-    .burger-icon {
-        display: none;
+    .burger-menu {
+        display: none; /* Hide burger menu button on iPads and larger screens */
     }
 }
