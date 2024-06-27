@@ -1,6 +1,6 @@
+/* Default styles for mobile */
 .container {
     width: 90%;
-    max-width: 1200px;
     margin: 0 auto;
     font-family: "Roboto Light", sans-serif;
 }
@@ -13,11 +13,12 @@
 
 .nav {
     display: flex;
-    justify-content: flex-end;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .nav-link {
-    margin-left: 2rem;
+    margin: 0.5rem 0;
     color: #6b7280;
     text-decoration: none;
     font-size: 1rem;
@@ -32,49 +33,49 @@
 }
 
 .workshop-detail {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+    display: block;
     margin-bottom: 2rem;
 }
 
 .workshop-image {
-    width: 400px;
-    height: 400px;
+    width: 100%;
+    height: auto;
     border-radius: 50%;
     object-fit: cover;
+    margin: 25px auto 1rem;
 }
 
 .workshop-info {
-    max-width: 600px;
+    width: 100%;
 }
 
 .workshop-title {
-    font-size: 2rem;
+    font-size: 1.5rem;
     margin: 0;
 }
 
 .workshop-subtitle {
-    font-size: 1.25rem;
+    font-size: 1rem;
     color: #6b7280;
     margin: 0.5rem 0;
 }
 
 .workshop-price {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     color: #000;
     margin: 1rem 0;
 }
 
 .workshop-description {
-    font-size: 1rem;
+    font-size: 0.875rem;
     color: #4b5563;
 }
+
 
 .add-to-cart {
     background-color: teal;
     color: #fff;
-    padding: 0.75rem 1.5rem;
+    padding: 0.5rem 1rem;
     border: none;
     border-radius: 0.25rem;
     cursor: pointer;
@@ -83,11 +84,11 @@
 }
 
 .add-to-cart:hover {
-    color:#6b7280;
+    color: #6b7280;
 }
 
 .additional-info {
-    font-size: 0.875rem;
+    font-size: 0.75rem;
     color: #9ca3af;
 }
 
@@ -96,14 +97,12 @@
 }
 
 .section-title {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     margin-bottom: 1rem;
 }
 
 .workshop-list {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
+    display: block;
 }
 
 .workshop-item {
@@ -111,6 +110,7 @@
     border: 1px solid #e5e7eb;
     border-radius: 0.5rem;
     padding: 1rem;
+    margin-bottom: 1rem;
     cursor: pointer;
 }
 
@@ -119,7 +119,6 @@
     max-width: 100%;
     height: auto;
 }
-
 
 .workshop-thumb {
     width: 100px;
@@ -135,11 +134,10 @@
 }
 
 .workshop-category {
-    font-size: 0.875rem;
+    font-size: 0.75rem;
     color: #6b7280;
     margin: 0;
 }
-
 
 .workshop-item .workshop-name,
 .workshop-item .workshop-category,
@@ -222,31 +220,66 @@ a:hover {
 }
 
 
-.footer {
-    background-color: #f3f4f6;
-    padding: 2rem 0;
-    text-align: center;
-}
+/* Styles for iPad-sized screens and above */
+@media (min-width: 768px) {
+    .container {
+        max-width: 1200px;
+    }
 
-.footer-section {
-    margin-bottom: 1rem;
-}
+    .nav {
+        flex-direction: row;
+        justify-content: flex-end;
+    }
 
-.footer-section h4 {
-    margin-bottom: 0.5rem;
-}
+    .nav-link {
+        margin-left: 2rem;
+        margin: 0;
+    }
 
-.footer-links {
-    display: flex;
-    justify-content: space-around;
-}
+    .workshop-detail {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin: 60px auto 1rem;
+    }
 
-.footer-links p {
-    margin: 0.5rem 0;
-}
+    .workshop-image {
+        width: 400px;
+        height: 400px;
+    }
 
-.footer-social {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
+    .workshop-info {
+        max-width: 600px;
+    }
+
+    .workshop-title {
+        font-size: 2rem;
+    }
+
+    .workshop-subtitle {
+        font-size: 1.25rem;
+    }
+
+    .workshop-price {
+        font-size: 1.5rem;
+    }
+
+    .workshop-description {
+        font-size: 1rem;
+    }
+
+    .workshop-list {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+        margin: 60px auto 1rem;
+    }
+
+    .additional-info {
+        font-size: 0.875rem;
+    }
 }
