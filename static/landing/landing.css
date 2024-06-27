@@ -1,22 +1,24 @@
-body {
-    font-family: "Roboto Light", sans-serif;
+.main-content {
+    padding: 1rem;
+    flex-grow: 1;
+    margin: 20px auto 1rem;
+}
+
+.section {
+    background-color: #ffffff;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
 }
-
-.container {
-    max-width: 100%; /* Full width for mobile */
-    margin: 0 auto;
-    padding: inherit;
-}
-
 /* Main content styling for mobile */
 .main-content img {
-    width: 90%; /* Narrower width for mobile */
-    max-width: 90%;
+    width: 100%;
     height: auto;
-    margin: 5vh auto;
+    margin-botton:20px;
+    margin-top: 20px;
 }
 
 .circular-images {
@@ -83,9 +85,8 @@ body {
 
 /* Media query for iPads and larger screens */
 @media (min-width: 768px) {
-    .container {
-        max-width: 1200px;
-    }
+
+
 
     .main-content img {
         margin-top: 17vh;

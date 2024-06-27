@@ -1,10 +1,19 @@
 /* Default styles for mobile */
-.container {
-    width: 90%;
-    margin: 0 auto;
-    font-family: "Roboto Light", sans-serif;
+.main-content {
+    padding: 1rem;
+    flex-grow: 1;
+    margin: 20px auto 1rem;
 }
 
+.section {
+    background-color: #ffffff;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+}
 .header {
     background-color: #fff;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
@@ -222,10 +231,10 @@ a:hover {
 
 /* Styles for iPad-sized screens and above */
 @media (min-width: 768px) {
-    .container {
-        max-width: 1200px;
+    .main-content {
+        margin-left: 0;
+        padding: 2rem;
     }
-
     .nav {
         flex-direction: row;
         justify-content: flex-end;
