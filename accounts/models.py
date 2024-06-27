@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from workshops.models import Workshop
+from django.contrib.auth.models import User
 
 def user_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
@@ -15,5 +16,5 @@ class Profile(models.Model):
     booked_workshops = models.ManyToManyField(Workshop, blank=True)
 
     def __str__(self):
-        return f'Profile of {self.user.username}'
+        return self.user.username
 

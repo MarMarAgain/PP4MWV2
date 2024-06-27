@@ -63,6 +63,7 @@
     flex-basis: 50%;
     margin-top: 1rem;
     padding-left: 1rem;
+    color: darkslategrey;
 }
 
 .user-details h3 {

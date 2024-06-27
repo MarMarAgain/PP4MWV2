@@ -1,5 +1,4 @@
 # accounts/views.py
-
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
@@ -8,10 +7,11 @@ from django.contrib.auth.views import LoginView
 from accounts.forms import CustomUserCreationForm, ProfileForm
 from django.contrib import messages
 from django.core.mail import send_mail
-from django.shortcuts import redirect, get_object_or_404
-from workshops.models import Workshop, Booking
+from workshops.models import Workshop
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 
 
 class SignUpView(CreateView):
@@ -72,11 +72,9 @@ def edit_profile(request):
     return render(request, 'accounts/edit_profile.html', context)
 
 
-
 @login_required
 def profile(request):
     return render(request, 'accounts/edit_profile.html')
-
 
 
 @login_required
@@ -86,10 +84,29 @@ def cancel_workshop(request, workshop_id):
     # Remove the workshop from user's booked workshops
     request.user.profile.booked_workshops.remove(workshop)
 
+    # Prepare email content for admin
+    admin_subject = f'Workshop Cancellation by {request.user.get_full_name()}'
+    admin_message = render_to_string('emails/admin_cancellation_notification.html', {'user': request.user, 'workshop': workshop})
+    plain_admin_message = strip_tags(admin_message)
+
+    # Prepare email content for user
+    user_subject = 'Workshop Cancellation Confirmation'
+    user_message = render_to_string('emails/user_cancellation_confirmation.html', {'user': request.user, 'workshop': workshop})
+    plain_user_message = strip_tags(user_message)
+
     # Send email notification to admin
-    subject = f'Workshop Cancellation by {request.user.get_full_name()}'
-    message = f'The user {request.user.get_full_name()} has canceled the workshop: {workshop.title}'
-    send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, ['oceanofnotions@gmail.com'])
+    try:
+        send_mail(admin_subject, plain_admin_message, settings.DEFAULT_FROM_EMAIL, ['oceanofnotions@gmail.com'], html_message=admin_message)
+    except Exception as e:
+        messages.error(request, f'Failed to send cancellation email to admin: {e}')
+
+    # Send email notification to user
+    try:
+        send_mail(user_subject, plain_user_message, settings.DEFAULT_FROM_EMAIL, [request.user.email], html_message=user_message)
+    except Exception as e:
+        messages.error(request, f'Failed to send cancellation email to user: {e}')
 
     messages.success(request, 'Workshop booking canceled successfully.')
     return redirect('edit_profile')
+
+

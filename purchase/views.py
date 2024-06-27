@@ -7,10 +7,10 @@ from datetime import datetime
 from django.views.generic import TemplateView
 from django.views.decorators.http import require_POST
 from accounts.models import Profile
-from django.shortcuts import render, redirect
 from django.core.mail import send_mail
 from django.conf import settings
-from .models import Cart
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 
 
 @login_required
@@ -67,27 +67,40 @@ def book_now(request):
         return redirect('cart')  # Redirect to cart or handle error
 
     # Save booked workshops to user's profile
-    profile = Profile.objects.get_or_create(user=request.user)[0]
+    profile, created = Profile.objects.get_or_create(user=request.user)
     for item in cart.items.all():
         profile.booked_workshops.add(item.workshop)
 
     # Prepare email content
     subject = 'Workshop Booking Confirmation'
-    message = f'You have successfully booked the following workshops:\n\n'
-    for item in cart.items.all():
-        message += f'Workshop: {item.workshop.title}\nDate and Time: {item.date_time}\nPrice: €{item.workshop.price}\nQuantity: {item.quantity}\n\n'
+    context = {
+        'user': request.user,
+        'items': cart.items.all(),
+    }
+    html_message = render_to_string('emails/booking_confirmation.html', context)
+    plain_message = strip_tags(html_message)
 
     # Send email to admin
-    send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, ['oceanofnotions@gmail.com'])
+    try:
+        send_mail(subject, plain_message, settings.DEFAULT_FROM_EMAIL, ['oceanofnotions@gmail.com'], html_message=html_message)
+    except Exception as e:
+        # Handle email sending error
+        print(f"Failed to send email to admin: {e}")
 
     # Send email to user
-    send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [request.user.email])
+    try:
+        send_mail(subject, plain_message, settings.DEFAULT_FROM_EMAIL, [request.user.email], html_message=html_message)
+    except Exception as e:
+        # Handle email sending error
+        print(f"Failed to send email to user: {e}")
 
     # Clear the cart after successful booking
     cart.items.all().delete()
 
     # Redirect to a success page or another view
-    return redirect('payment_successful')  # Adjust this URL name as per your URL configuration
+    return redirect('payment_successful')
+
+
 
 
 @login_required

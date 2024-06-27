@@ -14,8 +14,9 @@ def workshop_list(request):
 
 
 def workshop_detail(request, workshop_id):
-   workshop = get_object_or_404(Workshop, pk=workshop_id)
-   return render(request, 'workshops/workshop_detail.html', {'workshop': workshop})
+    workshop = get_object_or_404(Workshop, pk=workshop_id)
+    workshop_dates_times = workshop.dates_times.all()  # Fetch related WorkshopDateTime instances
+    return render(request, 'workshops/workshop_detail.html', {'workshop': workshop, 'workshop_dates_times': workshop_dates_times})
 
 
 @login_required

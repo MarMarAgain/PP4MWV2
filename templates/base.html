@@ -14,16 +14,21 @@
     <header class="header container">
         <img src="{% static 'project images/black logo.svg' %}" alt="Ocean Of Notions Logo" class="logo">
         <nav class="nav">
-            <a href="{% url 'landing_page' %}" class="nav-link">Home</a>
-            <a href="{% url 'workshop_list' %}" class="nav-link">Workshops</a>
-            <a href="#contact" class="nav-link">Contact</a>
-            {% if user.is_authenticated %}
-            <a href="{% url 'edit_profile' %}" class="nav-link">Profile</a>
-            <a href="{% url 'cart' %}" class="nav-link">Cart</a>
-            <a href="{% url 'logout' %}" class="nav-link login">Log out</a>
-            {% else %}
-            <a href="{% url 'login' %}" class="nav-link login">Log in</a>
-            {% endif %}
+            <button class="burger-menu">
+                <span class="burger-icon"></span>
+            </button>
+            <ul class="nav-links">
+                <li><a href="{% url 'landing_page' %}" class="nav-link">Home</a></li>
+                <li><a href="{% url 'workshop_list' %}" class="nav-link">Workshops</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'edit_profile' %}" class="nav-link">Profile</a></li>
+                    <li><a href="{% url 'cart' %}" class="nav-link">Cart</a></li>
+                    <li><a href="{% url 'logout' %}" class="nav-link login">Log out</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}" class="nav-link login">Log in</a></li>
+                {% endif %}
+            </ul>
         </nav>
     </header>
 
@@ -60,7 +65,9 @@
         </div>
     </footer>
 
+    <script src="{% static 'js/nav.js' %}"></script>
 </body>
 </html>
+
 
 

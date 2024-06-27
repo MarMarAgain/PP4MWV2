@@ -1,5 +1,51 @@
+body {
+    font-family: 'Roboto', sans-serif; /* Set font to Roboto */
+}
 
-    .center-form {
-        display: flex;
-        justify-content: center;
-    }
+.signup-container {
+    margin-top: 50px; /* Adjust top margin as needed */
+}
+
+.card {
+    margin-top: 20px; /* Add margin-top for better spacing */
+    padding: 20px; /* Add padding for internal spacing */
+}
+
+.card-header {
+    text-align: center;
+}
+
+.card-title {
+    color: mediumturquoise; /* Set sign-up title color to red */
+}
+
+.card-body {
+    text-align: left; /* Align form elements to the left */
+}
+
+.form-group label {
+    display: block; /* Ensure labels are above the input fields */
+    margin-bottom: 0.5rem; /* Add margin below labels */
+    color: #4b5563; /* Set label color to purple */
+}
+
+.form-group input {
+    width: 100%; /* Make input fields take up the full width of the container */
+    padding: 10px; /* Add padding for better appearance */
+    border: 1px solid #ddd; /* Border style */
+    border-radius: 4px; /* Border radius */
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+}
+
+.btn-primary {
+    background-color: teal; /* Teal background */
+    color: white; /* White text color */
+    border: none; /* Remove border */
+}
+
+.btn-primary:hover {
+    background-color: purple; /* Purple background on hover */
+    color: white; /* White text color on hover */
+}
+
+

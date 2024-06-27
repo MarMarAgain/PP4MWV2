@@ -1,7 +1,9 @@
+# forms.py
+
 from django import forms
-from .models import Profile
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from .models import Profile
 
 class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(max_length=254, help_text='Required. Provide a valid email address.')
@@ -15,9 +17,13 @@ class CustomUserCreationForm(UserCreationForm):
     def save(self, commit=True):
         user = super().save(commit=False)
         user.email = self.cleaned_data['email']
+        user.full_name = self.cleaned_data['full_name']
+        user.phone_number = self.cleaned_data['phone_number']
         if commit:
-            user.save()
-            Profile.objects.create(user=user, full_name=self.cleaned_data['full_name'], phone_number=self.cleaned_data['phone_number'])
+            user.save()  # Save the user instance first
+
+            # Create associated profile
+            Profile.objects.create(user=user)
         return user
 
 class ProfileForm(forms.ModelForm):
