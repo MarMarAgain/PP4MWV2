@@ -1,9 +1,16 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+
+{% block title %}Confirm Booking{% endblock %}
+
+{% block extra_head %}
 {% load static %}
-{% block content %}
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="{% static 'landing/cart.css' %}">
-    
-<main class="main-content">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<main class="container min-vh-100 d-flex flex-column justify-content-center align-items-center">
     <div class="cart-container">
         <div class="cart-content">
             <ul class="cart-items">
@@ -32,44 +39,19 @@
                     <li>Your cart is empty.</li>
                 {% endfor %}
             </ul>
-        <!-- Book Now Button -->
+        
+            <!-- Book Now Button -->
             <form action="{% url 'book_now' %}" method="post">
                 {% csrf_token %}
                 <button type="submit" class="book-now-btn">Book Now</button>
-            </form>
+            </form> <br>
         
-            <a href="{% url 'workshop_list' %}">Continue Shopping</a>
+            <a href="{% url 'workshop_list' %}" class="continue">Continue Shopping</a>
         </div>
     </div>
-
 </main>
-    
 
-<script src="{% static 'workshop_static/js/scripts.js' %}"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
-    $(document).ready(function() {
-        // Submit form when Remove button is clicked
-        $('.remove-item-btn').on('click', function(e) {
-            e.preventDefault();
-            var form = $(this).closest('form');
-            $.ajax({
-                type: form.attr('method'),
-                url: form.attr('action'),
-                data: form.serialize(),
-                success: function(response) {
-                    if (response.success) {
-                        form.closest('.cart-item').remove(); // Remove the item from UI
-                    } else {
-                        console.error('Failed to remove item from cart');
-                    }
-                },
-                error: function(response) {
-                    console.error('Error removing item from cart');
-                }
-            });
-        });
-    });
-</script>
+<script src="{% static 'js/cart.js' %}"></script>
 {% endblock %}
+
 

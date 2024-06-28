@@ -1,62 +1,31 @@
-/* General styles */
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Roboto', sans-serif;
     margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
 }
 
-.sidebar {
-    width: 250px;
-    background-color: #ffffff;
-    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-    padding: 1rem;
-    height: 100vh;
-    position: fixed;
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Adjust padding as needed */
 }
+
+
 
 .nav {
     display: flex;
     justify-content: flex-end;
 }
 
-.nav-link {
-    margin-left: 2rem;
-    color: #6b7280;
-    text-decoration: none;
-    font-size: 1rem;
-}
-
-.nav-link:hover {
-    color: mediumturquoise;
-}
-
-.sidebar-title {
-    font-size: 1.5rem;
-    margin-bottom: 2rem;
-}
-
-.sidebar-nav {
-    display: flex;
-    flex-direction: column;
-}
 
 .sidebar-link {
     display: flex;
     align-items: center;
-    padding: 0.75rem 1rem;
-    color: #4b5563;
-    text-decoration: none;
-    font-size: 1rem;
-    margin-bottom: 1rem;
-}
-
-.sidebar-link i {
-    margin-right: 10px;
-}
-
-.sidebar-link img {
-    margin-right: 1rem;
 }
 
 .sidebar-link:hover,
@@ -121,6 +90,53 @@ body {
     cursor: pointer;
 }
 
+.book-now-btn{
+    background-color: #362B3D;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.book-now-btn:hover{
+    background-color: #786288;
+}
+
+.remove-item-btn {
+    width: auto;
+    background-color: maroon;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.remove-item-btn:hover {
+    background-color: #dc3545;
+}
+
+
+.continue {
+    background-color: teal;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+  .continue:hover {
+      background-color: #319e9e;
+  }
+
 @media (min-width: 768px) {
     .cart-container {
         flex-direction: row;
@@ -132,10 +148,5 @@ body {
         margin-right: 20px;
     }
 
-    .cart-sidebar {
-        flex: 1;
-        padding: 20px;
-        border-left: 1px solid #ddd;
-        border-top: none;
-    }
+
 }

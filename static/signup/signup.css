@@ -1,4 +1,4 @@
-/* This CSS serves signup/login html */
+/* This CSS serves signup/login/home/payment_success/ Payment_failure html */
 body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
@@ -67,7 +67,14 @@ main {
     background-color: #362B3D;
     color: white;
     border: none;
-}
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 20px;
+    text-decoration: none;
+    }
+
 
 .btn-primary:hover {
     background-color: #786288;
@@ -81,13 +88,29 @@ main {
     gap: 10px;
 }
 
+h1{
+    text-align: center;
+    color: teal;
+    display: block;
+}
+
+h2{
+    text-align: center;
+    color: #362B3D;
+    display: block;
+}
+
+h3{
+    text-align: center;
+    color: maroon;
+}
+
 @media (min-width: 768px) {
     .container {
         max-width: 100%;
     }
 
     .additional-buttons .btn {
-        width: auto;
         background-color: #362B3D;
         color: white;
     }
@@ -97,6 +120,8 @@ main {
         color: white;
     }
 }
+
+
 
 .header {
     display: flex;
@@ -115,3 +140,4 @@ main {
     display:flex;
     padding-top: 170px;
 }
+

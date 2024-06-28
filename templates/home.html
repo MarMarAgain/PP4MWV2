@@ -12,7 +12,7 @@
 <main class="container min-vh-100 d-flex flex-column justify-content-center align-items-center">
     {% if user.is_authenticated %}
     <div class="text-center mb-5">
-        <p>Hi {{ user.username }}!</p>
+        <h1>Hi {{ user.username }}!</h1>
         <p><a href="{% url 'password_change' %}" class="btn btn-primary">Password Change</a></p>
         <form action="{% url 'logout' %}" method="post" class="d-inline">
             {% csrf_token %}
@@ -23,9 +23,10 @@
      <div class="text-center mb-5 additional-buttons">
         <p>You are not logged in</p>
         <div class="d-flex flex-column align-items-center">
-            <a href="{% url 'password_reset' %}" class="btn btn-secondary mb-2">Continue Password Reset</a>
-            <a href="{% url 'login' %}" class="btn btn-secondary">Back To Log In</a>
+            <a href="{% url 'password_reset' %}" class="btn btn-primary">Continue Password Reset</a>
+            <a href="{% url 'login' %}" class="btn btn-primary">Back To Log In</a>
         </div>
     {% endif %}
+    </div>
 </main>
 {% endblock %}

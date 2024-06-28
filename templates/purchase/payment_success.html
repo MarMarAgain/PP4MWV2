@@ -1,16 +1,22 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
-{% load static %}
+{% block title %}Reset Password{% endblock %}
 
 {% block extra_head %}
-    <link rel="stylesheet" href="{% static 'landing/landing.css' %}">
+{% load static %}
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<link href="{% static 'signup/signup.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
-
-<h1>Yay! Your workshop is booked!</h1>
-    
-    <h2> Your booked workshop is logged on your profile - we will email you closer to the time to confirm the details</h2>
-    <h3> Please note that the amount payable is due on the day the workshop takes place</h3>
-
+<main class="container min-vh-100 d-flex flex-column justify-content-center align-items-center">
+    <div class="card signup-container">
+        
+        <div>
+            <h1>Yay! Your workshop is booked!</h1>
+            <h2>Your booked workshop is now logged on your profile <br> We will email you closer to the time to confirm the details</h2>
+            <h3>Please note that the amount payable is due on the day the workshop takes place</h3>
+        </div>
+    </div>
+</main>
 {% endblock %}

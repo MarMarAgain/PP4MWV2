@@ -1,6 +1,6 @@
 /* Set a base font size */
 html {
-    font-size: 16px; /* 1rem = 16px */
+    font-size: 16px;
 }
 
 body {
@@ -9,6 +9,22 @@ body {
     padding: 0;
     box-sizing: border-box;
 }
+
+
+a {
+    color: teal;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: darkturquoise;
+}
+
+.cart-sidebar h3 {
+    margin-top: 0;
+}
+
 
 /* General styles for the header */
 .header {
@@ -21,20 +37,15 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.625rem 1.25rem; /* 10px 20px in rem */
+    padding: 0.625rem 1.25rem;
 }
 
 /* Logo styles */
 .logo {
-    width: 6.25rem; /* 100px in rem */
-    height: auto;
+    height: 3rem;
+    width: auto;
 }
 
-/* Navigation styles */
-.nav {
-    display: flex;
-    align-items: center;
-}
 
 /* Burger menu styles */
 .burger-menu {
@@ -42,14 +53,14 @@ body {
     background: none;
     border: none;
     cursor: pointer;
-    padding: 0.3125rem; /* 5px in rem */
+    padding: 0.3125rem;
     display: block;
 }
 
 .burger-icon {
     display: block;
-    width: 1.5625rem; /* 25px in rem */
-    height: 0.125rem; /* 2px in rem */
+    width: 1.5625rem;
+    height: 0.125rem;
     background-color: #6b7280;
     position: relative;
     transition: transform 0.3s ease;
@@ -67,11 +78,17 @@ body {
 }
 
 .burger-icon:before {
-    top: -0.5rem; /* -8px in rem */
+    top: -0.5rem;
 }
 
 .burger-icon:after {
-    top: 0.5rem; /* 8px in rem */
+    top: 0.5rem;
+}
+
+/* Navigation styles */
+.nav {
+    display: flex;
+    align-items: center;
 }
 
 /* Navigation links styles */
@@ -81,10 +98,10 @@ body {
     padding: 0;
     display: none;
     position: absolute;
-    top: 3.75rem; /* 60px in rem */
-    right: 1.25rem; /* 20px in rem */
+    top: 3.75rem;
+    right: 1.25rem; /
     background-color: #ffffff;
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1); /* 2px 4px in rem */
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
     z-index: 999;
 }
 
@@ -93,7 +110,7 @@ body {
 }
 
 .nav-links li {
-    padding: 0.625rem 1.25rem; /* 10px 20px in rem */
+    padding: 0.625rem 1.25rem;
 }
 
 .nav-links a {
@@ -107,18 +124,22 @@ body {
 
 /* Main content styles */
 .main-content {
-    padding-top: 8rem; /* 100px in rem */
+    padding-top: 8rem;
 }
 
 /* Footer styles */
 .footer {
     background-color: #f3f4f6;
-    padding: 1.25rem; /* 20px in rem */
+    padding: 1.25rem;
     text-align: center;
 }
 
+.footer h2{
+    color: #c82333;
+}
+
 /* Media query for iPads and larger screens */
-@media (min-width: 48rem) { /* 768px in rem */
+@media (min-width: 48rem) {
 
     .main-content {
         margin-left: 0;
