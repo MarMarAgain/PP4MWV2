@@ -1,14 +1,14 @@
-body {
-    font-family: 'Roboto', sans-serif; /* Set font to Roboto */
+body body {
+    font-family: 'Roboto', sans-serif;
 }
 
 .signup-container {
-    margin-top: 50px; /* Adjust top margin as needed */
+    max-height: 50%;
 }
 
 .card {
-    margin-top: 20px; /* Add margin-top for better spacing */
-    padding: 20px; /* Add padding for internal spacing */
+    margin-top: 20px;
+    padding: 20px;
 }
 
 .card-header {
@@ -16,36 +16,77 @@ body {
 }
 
 .card-title {
-    color: mediumturquoise; /* Set sign-up title color to red */
+    color: mediumturquoise;
 }
 
 .card-body {
-    text-align: left; /* Align form elements to the left */
+    text-align: left;
 }
 
 .form-group label {
-    display: block; /* Ensure labels are above the input fields */
-    margin-bottom: 0.5rem; /* Add margin below labels */
-    color: #4b5563; /* Set label color to purple */
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #4b5563;
 }
 
 .form-group input {
-    width: 100%; /* Make input fields take up the full width of the container */
-    padding: 10px; /* Add padding for better appearance */
-    border: 1px solid #ddd; /* Border style */
-    border-radius: 4px; /* Border radius */
-    box-sizing: border-box; /* Include padding and border in element's total width and height */
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
 
 .btn-primary {
-    background-color: teal; /* Teal background */
-    color: white; /* White text color */
-    border: none; /* Remove border */
+    background-color: #362B3D;
+    color: white;
+    border: none;
 }
 
 .btn-primary:hover {
-    background-color: purple; /* Purple background on hover */
-    color: white; /* White text color on hover */
+    background-color: #786288;
+    color: white;
 }
 
+.additional-buttons {
+    display: none;
+}
 
+@media (min-width: 768px) {
+    .container {
+        max-width: 100%;
+
+    }
+    .additional-buttons {
+        display: inline-flex;
+        flex-direction: row;
+        gap: 10px;
+        margin-top: 300px;
+        margin-left: 300px;
+        align-items: center;
+        padding: 15px 25px;
+        font-size: 16px;
+        width: fit-content;
+        text-align: center;
+    }
+
+    .additional-buttons .btn {
+        width: auto;
+        background-color: #362B3D;
+        color: white;
+    }
+
+    .additional-buttons .btn:hover {
+        background-color: #786288;
+        color: white;
+    }
+
+}
+
+.header {
+    display: flex;
+}
+
+.card-header{
+    display:none;
+}

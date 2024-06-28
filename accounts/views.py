@@ -1,5 +1,5 @@
 # accounts/views.py
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
@@ -109,4 +109,7 @@ def cancel_workshop(request, workshop_id):
     messages.success(request, 'Workshop booking canceled successfully.')
     return redirect('edit_profile')
 
+def logout_view(request):
+    logout(request)
+    return redirect('login')
 
