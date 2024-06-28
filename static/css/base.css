@@ -10,22 +10,6 @@ body {
     box-sizing: border-box;
 }
 
-
-a {
-    color: teal;
-    text-decoration: none;
-    transition: color 0.3s;
-}
-
-a:hover {
-    color: darkturquoise;
-}
-
-.cart-sidebar h3 {
-    margin-top: 0;
-}
-
-
 /* General styles for the header */
 .header {
     position: fixed;
@@ -49,7 +33,7 @@ a:hover {
 
 /* Burger menu styles */
 .burger-menu {
-    appearance: none;
+    appearance:inherit;
     background: none;
     border: none;
     cursor: pointer;
@@ -103,6 +87,7 @@ a:hover {
     background-color: #ffffff;
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
     z-index: 999;
+     background-color: white;
 }
 
 .nav-links.open {
@@ -136,6 +121,17 @@ a:hover {
 
 .footer h2{
     color: #c82333;
+}
+
+.footer a {
+    color: teal;
+    text-decoration: none;
+    transition: color 0.3s;
+    margin-right: 10px;
+}
+
+.footer a:hover {
+    color: darkturquoise;
 }
 
 /* Media query for iPads and larger screens */
