@@ -100,9 +100,6 @@ def book_now(request):
     # Redirect to a success page or another view
     return redirect('payment_successful')
 
-
-
-
 @login_required
 def payment_success(request):
     # Logic for handling payment success

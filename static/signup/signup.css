@@ -1,5 +1,31 @@
-body body {
+/* This CSS serves signup/login html */
+body {
     font-family: 'Roboto', sans-serif;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+}
+
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px; /* Adjust padding as needed */
+}
+
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    color: white;
 }
 
 .signup-container {
@@ -49,25 +75,15 @@ body body {
 }
 
 .additional-buttons {
-    display: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
 }
 
 @media (min-width: 768px) {
     .container {
         max-width: 100%;
-
-    }
-    .additional-buttons {
-        display: inline-flex;
-        flex-direction: row;
-        gap: 10px;
-        margin-top: 300px;
-        margin-left: 300px;
-        align-items: center;
-        padding: 15px 25px;
-        font-size: 16px;
-        width: fit-content;
-        text-align: center;
     }
 
     .additional-buttons .btn {
@@ -80,13 +96,22 @@ body body {
         background-color: #786288;
         color: white;
     }
-
 }
 
 .header {
     display: flex;
 }
 
-.card-header{
-    display:none;
+.card-header {
+    display: none;
+}
+
+
+.signup-image {
+    width: 250%;
+    max-width: 800px;
+    height: auto;
+    margin-bottom: auto;
+    display:flex;
+    padding-top: 170px;
 }

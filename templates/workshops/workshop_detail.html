@@ -19,6 +19,7 @@
                     <p class="additional-info">{{ workshop.category }}, {{ workshop.duration }}</p>
                     <p class="workshop-price">€{{ workshop.price }}</p>
                     <p class="workshop-description">About<br>{{ workshop.description }}</p>
+                    
 
             <form id="add-to-cart-form" method="GET" action="{% url 'add_to_cart' workshop.id %}">
                 <label for="date_time">Select Date and Time:</label>

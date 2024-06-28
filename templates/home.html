@@ -1,24 +1,31 @@
-<!-- templates/home.html -->
-<!--email for reg user to be added-->
-
-
 {% extends "base.html" %}
 
+{% block title %}Reset Password{% endblock %}
 
-{% block title %}Home{% endblock %}
-
+{% block extra_head %}
+{% load static %}
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<link href="{% static 'signup/signup.css' %}" rel="stylesheet">
+{% endblock %}
 
 {% block content %}
-{% if user.is_authenticated %}
-<p>Hi {{ user.username }}!</p>
-<p><a href="{% url 'password_change' %}">Password Change</a></p>
-<form action="{% url 'logout' %}" method="post">
- {% csrf_token %}
- <button type="submit">Log Out</button>
-</form>
-{% else %}
-<p>You are not logged in</p>
-<p><a href="{% url 'password_reset' %}">Password Reset</a></p>
-<p><a href="{% url 'login' %}">Log In</a></p>
-{% endif %}
+<main class="container min-vh-100 d-flex flex-column justify-content-center align-items-center">
+    {% if user.is_authenticated %}
+    <div class="text-center mb-5">
+        <p>Hi {{ user.username }}!</p>
+        <p><a href="{% url 'password_change' %}" class="btn btn-primary">Password Change</a></p>
+        <form action="{% url 'logout' %}" method="post" class="d-inline">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary">Log Out</button>
+        </form>
+    </div>
+    {% else %}
+     <div class="text-center mb-5 additional-buttons">
+        <p>You are not logged in</p>
+        <div class="d-flex flex-column align-items-center">
+            <a href="{% url 'password_reset' %}" class="btn btn-secondary mb-2">Continue Password Reset</a>
+            <a href="{% url 'login' %}" class="btn btn-secondary">Back To Log In</a>
+        </div>
+    {% endif %}
+</main>
 {% endblock %}

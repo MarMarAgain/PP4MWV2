@@ -21,7 +21,7 @@ def workshop_booking_handler(sender, instance, action, **kwargs):
     elif action == "post_remove":
         workshop = kwargs['pk_set']
         subject = "Workshop Cancellation Confirmation"
-        html_message = render_to_string('emails/cancellation_confirmation.html', {'workshop': workshop, 'user': instance.user})
+        html_message = render_to_string('emails/user_cancellation_confirmation.html', {'workshop': workshop, 'user': instance.user})
         plain_message = strip_tags(html_message)
         to_email = instance.user.email
         admin_email = 'oceanofnotions@gmail.com'

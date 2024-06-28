@@ -22,7 +22,6 @@
                            <a href="{% url 'workshop_detail' workshop_id=workshop.id %}" class="workshop-name">{{ workshop.title }}</a>
                            <p class="workshop-category">{{ workshop.category }}</p>
                            <p class="workshop-price">€{{ workshop.price }}</p>
-                           <p class="workshop-runtime">Runtime: {{ workshop.runtime }}</p>
                        </div>
                    {% endfor %}
                </div>
