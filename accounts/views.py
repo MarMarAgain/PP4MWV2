@@ -12,6 +12,7 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
+from purchase.models import BookedWorkshop
 
 
 class SignUpView(CreateView):
@@ -47,6 +48,7 @@ class CustomLoginView(LoginView):
     def get_success_url(self):
         return reverse_lazy('edit_profile')  # Redirect to profile page after login
 
+
 @login_required
 def edit_profile(request):
     profile = request.user.profile
@@ -54,8 +56,6 @@ def edit_profile(request):
     if request.method == 'POST':
         form = ProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
-            print("Form is valid")
-            print("Uploaded file:", request.FILES.get('profile_picture'))
             form.save()
             messages.success(request, 'Your profile details have been saved.')
             return redirect('edit_profile')  # Redirect after successful form submission
@@ -64,9 +64,13 @@ def edit_profile(request):
     else:
         form = ProfileForm(instance=profile)
 
+    # Fetch booked workshops directly from the profile
+    booked_workshops = profile.booked_workshops.all()
+
     context = {
         'profile': profile,
         'form': form,
+        'booked_workshops': booked_workshops,
     }
 
     return render(request, 'accounts/edit_profile.html', context)
@@ -113,3 +117,9 @@ def logout_view(request):
     logout(request)
     return redirect('login')
 
+def book_workshop_view(request):
+    all_booked_workshops = Workshop.objects.filter(is_booked=True)
+    context = {
+        'all_booked_workshops': all_booked_workshops,
+    }
+    return render(request, 'workshops/workshop_list.html', context)

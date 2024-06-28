@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Cart, CartItem
+from .models import Cart, CartItem, BookedWorkshop
 from workshops.models import Workshop
 from datetime import datetime
 from django.views.generic import TemplateView
@@ -58,7 +58,6 @@ def cart(request):
 
     return render(request, 'purchase/cart.html', {'cart': cart})
 
-
 @login_required
 def book_now(request):
     try:
@@ -66,12 +65,16 @@ def book_now(request):
     except Cart.DoesNotExist:
         return redirect('cart')  # Redirect to cart or handle error
 
-    # Save booked workshops to user's profile
     profile, created = Profile.objects.get_or_create(user=request.user)
     for item in cart.items.all():
+        BookedWorkshop.objects.create(
+            user=request.user,
+            workshop=item.workshop,
+            date_time=item.date_time,
+            quantity=item.quantity
+        )
         profile.booked_workshops.add(item.workshop)
 
-    # Prepare email content
     subject = 'Workshop Booking Confirmation'
     context = {
         'user': request.user,
@@ -80,24 +83,17 @@ def book_now(request):
     html_message = render_to_string('emails/booking_confirmation.html', context)
     plain_message = strip_tags(html_message)
 
-    # Send email to admin
     try:
         send_mail(subject, plain_message, settings.DEFAULT_FROM_EMAIL, ['oceanofnotions@gmail.com'], html_message=html_message)
     except Exception as e:
-        # Handle email sending error
         print(f"Failed to send email to admin: {e}")
 
-    # Send email to user
     try:
         send_mail(subject, plain_message, settings.DEFAULT_FROM_EMAIL, [request.user.email], html_message=html_message)
     except Exception as e:
-        # Handle email sending error
         print(f"Failed to send email to user: {e}")
 
-    # Clear the cart after successful booking
     cart.items.all().delete()
-
-    # Redirect to a success page or another view
     return redirect('payment_successful')
 
 @login_required

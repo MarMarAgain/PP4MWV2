@@ -24,17 +24,6 @@ class WorkshopDateTime(models.Model):
    date_time = models.DateTimeField()
 
 
-   TIME_CHOICES = [
-       ('10am', '10 am'),
-       ('11am', '11 am'),
-       ('12noon', '12 noon'),
-       ('2pm', '2 pm'),
-       ('3pm', '3 pm'),
-       ('4pm', '4 pm'),
-   ]
-   time_choice = models.CharField(max_length=20, choices=TIME_CHOICES, default='10am')
-
-
    def __str__(self):
        return f"{self.workshop} - {self.date_time}"
 

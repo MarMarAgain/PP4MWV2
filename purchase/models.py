@@ -16,3 +16,10 @@ class CartItem(models.Model):
 
     def __str__(self):
         return f"{self.quantity} x {self.workshop.title} for {self.cart.user.username}"
+
+class BookedWorkshop(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    workshop = models.ForeignKey(Workshop, on_delete=models.CASCADE)
+    date_time = models.DateTimeField()
+    quantity = models.PositiveIntegerField(default=1)
+    booked_at = models.DateTimeField(auto_now_add=True)
