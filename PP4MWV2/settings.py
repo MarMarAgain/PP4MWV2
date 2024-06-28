@@ -17,6 +17,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 from pathlib import Path
 import os
+import django_heroku
+
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -75,8 +77,11 @@ MIDDLEWARE = [
    'django.contrib.auth.middleware.AuthenticationMiddleware',
    'django.contrib.messages.middleware.MessageMiddleware',
    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+   'django.middleware.security.SecurityMiddleware',
+   'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
+django_heroku.settings(locals())
 
 ROOT_URLCONF = 'PP4MWV2.urls'
 
