@@ -1,6 +1,6 @@
 from django.urls import path
 from django.conf import settings
-from .views import CustomLoginView, SignUpView, edit_profile, cancel_workshop, logout_view
+from .views import CustomLoginView, SignUpView, edit_profile, logout_view
 from django.conf.urls.static import static
 from . import views
 

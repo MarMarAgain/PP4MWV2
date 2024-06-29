@@ -1,7 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
 from workshops.models import Workshop
-from django.contrib.auth.models import User
 
 def user_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>

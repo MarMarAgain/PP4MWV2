@@ -1,6 +1,5 @@
-from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Workshop, WorkshopDateTime  # Workshop model import changed
+from .models import Workshop # Workshop model import changed
 from .forms import WorkshopBookingForm
 from django.contrib.auth.decorators import login_required
 from django.utils.dateparse import parse_date, parse_time
