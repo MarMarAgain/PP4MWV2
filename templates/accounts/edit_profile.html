@@ -42,20 +42,21 @@
 
     <h2>Booked Workshops</h2>
     <div class="booked-workshops">
-        {% for workshop in booked_workshops %}
+        {% for booked_workshop in booked_workshops %}
             <div class="workshop">
                 <div class="workshop-details d-flex">
                     <div class="workshop-image">
-                        <img src="{{ workshop.image.url }}" alt="Workshop Image">
+                        <img src="{{ booked_workshop.workshop.image.url }}" alt="Workshop Image">
                     </div>
                     <div class="item-details">
-                        <h3>{{ workshop.title }}</h3>
-                        <p>Price: €{{ workshop.price }}</p>
-                        <p>Date and Time: {{ workshop.date }}</p>
+                        <h3>{{ booked_workshop.workshop.title }}</h3>
+                        <p>Price: €{{ booked_workshop.workshop.price }}</p>
+                        <p>Date and Time: {{ booked_workshop.date_time }}</p>
+                        <p>Quantity: {{ booked_workshop.quantity }}</p>
                     </div>
                 </div>
                 <div class="workshop-action">
-                    <form action="{% url 'cancel_workshop' workshop.id %}" method="post">
+                    <form action="{% url 'cancel_workshop' booked_workshop.workshop.id %}" method="post">
                         {% csrf_token %}
                         <button type="submit" class="cancel-button btn btn-danger">Cancel Workshop</button>
                     </form>
