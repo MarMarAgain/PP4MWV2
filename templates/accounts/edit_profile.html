@@ -1,5 +1,3 @@
-<!-- templates/accounts/edit_profile.html -->
-
 {% extends 'base.html' %}
 
 {% load static %}
@@ -13,19 +11,19 @@
     <h1>Profile</h1>
     <div class="details-form-container">
         <div class="profile-section">
-            <div class="profile-header">
-                <img id="profile-photo" src="{% if user.profile.profile_picture %}{{ user.profile.profile_picture.url }}{% else %}{% static 'project images/default_profile.jpg' %}{% endif %}" alt="Profile Photo" class="profile-photo"><br>
-                <label for="id_profile_picture" class="profile-picture-label">Change profile picture</label><br>
-                <input type="file" id="id_profile_picture" name="profile_picture" class="hidden-file-input">
-            </div>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="profile-header">
+                    <img id="profile-photo" src="{% if user.profile.profile_picture %}{{ user.profile.profile_picture.url }}{% else %}{% static 'project images/default_profile.jpg' %}{% endif %}" alt="Profile Photo" class="profile-photo"><br>
+                    <label for="id_profile_picture" class="profile-picture-label">Change profile picture</label><br>
+                    <input type="file" id="id_profile_picture" name="profile_picture" class="hidden-file-input">
+                </div>
 
-            <div class="user-details">
-                <p><strong>Email:</strong> {{ request.user.email }}</p>
-            </div>
+                <div class="user-details">
+                    <p><strong>Email:</strong> {{ request.user.email }}</p>
+                </div>
 
-            <div class="profile-form">
-                <form method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
+                <div class="profile-form">
                     <div class="form-group">
                         <label for="id_school_details"><strong>School Details:</strong></label>
                         {{ form.school_details }}
@@ -35,8 +33,8 @@
                         {{ form.students_info }}
                     </div>
                     <button type="submit" class="save-changes">Save changes</button>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -74,6 +72,7 @@
     {% endif %}
 </div>
 {% endblock %}
+
 
 
 
