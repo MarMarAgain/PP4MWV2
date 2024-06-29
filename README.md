@@ -2,9 +2,13 @@
 
 Ocean of Notions is a Django-based web application designed for the Ocean of Notions Theatre Company's educational outreach program, Masterworks. This application allows educators to sign up, book workshops, and cancel them. It is adaptable to fit into a preexisting company page or stand-alone. Future features include real-time messaging between the company and their customers.
 
+
+![Masterworks PR Image](https://github.com/MarMarAgain/PP4MWV2/assets/158588349/23f3927d-97c0-41bc-b564-bb04dd4f8cdc)
+
+
 ## Project Structure
 
-The project structure is linked here : 
+[Link to Google Sheets Document](https://docs.google.com/spreadsheets/d/1-f6QfLams4WqlazBVoMkG_brbBXNDETeN_XpVoQlGNw/edit?usp=sharing)
 
 
 ## Setup Instructions
@@ -60,6 +64,10 @@ The project structure is linked here :
     Open your browser and navigate to `http://127.0.0.1:8000`.
 
 ## Application Overview
+
+### UX Design File Guide
+
+![UX Design File](https://github.com/MarMarAgain/PP4MWV2/assets/158588349/244ec22b-6065-441a-a7aa-ef302ef15138)
 
 ### Accounts
 
@@ -176,8 +184,70 @@ The `templates` directory contains HTML templates used in the application. Key t
 
 ## Testing
 
-A link to the table detailing the validations can be found here : 
+[Link to Google Sheets Document](https://docs.google.com/spreadsheets/d/1r9aXE0g0vNQ3vZQkkfax04xow1b_Bp2MzG0Hmn-zru4/edit?usp=sharing)
 
+## References
+
+### Books
+
+1. **Django for Beginners: Build websites with Python and Django**
+   - Vincent, W. S. (2018). *Django for Beginners: Build websites with Python and Django*. Leanpub.
+       - **Reference - Project Structure and Setup Instructions**
+
+2. **Django 3 By Example**
+   - Melendez, A. (2020). *Django 3 By Example*. Packt Publishing.
+       - **Reference - accounts/models.py, forms.py, views.py, urls.py**
+
+5. **Python Crash Course, 2nd Edition: A Hands-On, Project-Based Introduction to Programming**
+   - Matthes, E. (2019). *Python Crash Course, 2nd Edition: A Hands-On, Project-Based Introduction to Programming*. No Starch Press.
+       - **Reference - General Python code**
+
+6. **The Definitive Guide to Django: Web Development Done Right**
+   - Holovaty, A., & Kaplan-Moss, J. (2009). *The Definitive Guide to Django: Web Development Done Right*. Apress.
+       - **Reference - models.py, views.py, urls.py, templates**
+
+### Online Resources
+
+1. **Django Documentation**
+   - Django Software Foundation. (n.d.). Django documentation. Retrieved from https://docs.djangoproject.com/en/stable/
+       - **Reference - Project Structure, Setup Instructions, models.py, views.py, urls.py, templates**
+
+2. **Mozilla Developer Network (MDN) Django Tutorial**
+   - Mozilla Developer Network. (n.d.). Django Web Framework (Python). Retrieved from https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django
+       - **Reference - General Django development**
+
+4. **Django REST Framework**
+   - Django REST Framework. (n.d.). Django REST framework. Retrieved from https://www.django-rest-framework.org/
+       - **Reference - Adding API functionality (future feature)**
+
+5. **Heroku: Deploying Django Apps**
+   - Heroku. (n.d.). Deploying Django Apps on Heroku. Retrieved from https://devcenter.heroku.com/articles/deploying-python
+       - **Reference - Deployment**
+
+6. **Django Packages**
+   - Django Packages. (n.d.). Django Packages. Retrieved from https://djangopackages.org/
+       - **Reference - Enhancing project with additional packages**
+
+### Corresponding References to Project Code
+
+- **Project Structure and Setup Instructions**
+  - Vincent, W. S. (2018). *Django for Beginners: Build websites with Python and Django*. Leanpub.
+  - Melendez, A. (2020). *Django 3 By Example*. Packt Publishing.
+  - Django Software Foundation. (n.d.). Django documentation. Retrieved from https://docs.djangoproject.com/en/stable/
+
+- **General Django development**
+  - Mozilla Developer Network. (n.d.). Django Web Framework (Python). Retrieved from https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django
+
+- **accounts/models.py, forms.py, views.py, urls.py**
+  - Melendez, A. (2020). *Django 3 By Example*. Packt Publishing.
+  - Greenfeld, D. R., & Greenfeld, A. R. (2019). *Two Scoops of Django 3.x: Best Practices for the Django Web Framework*. Two Scoops Press.
+  - Real Python. (n.d.). Django Tutorials. Retrieved from https://realpython.com/tutorials/django/
+
+- **General Python code**
+  - Matthes, E. (2019). *Python Crash Course, 2nd Edition: A Hands-On, Project-Based Introduction to Programming*. No Starch Press.
+
+- **models.py, views.py, urls.py, templates**
+  - Holovaty, A., & Kaplan-Moss, J. (2009). *The Definitive Guide to Django: Web Development Done Right*. Apress.
 
 
 
