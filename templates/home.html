@@ -20,13 +20,15 @@
         </form>
     </div>
     {% else %}
-     <div class="text-center mb-5 additional-buttons">
+    <div class="text-center mb-5 additional-buttons">
         <p>You are not logged in</p>
         <div class="d-flex flex-column align-items-center">
             <a href="{% url 'password_reset' %}" class="btn btn-primary">Continue Password Reset</a>
             <a href="{% url 'login' %}" class="btn btn-primary">Back To Log In</a>
+            <a href="{% url 'signup' %}" class="btn btn-primary mt-3">Sign Up</a> 
         </div>
-    {% endif %}
     </div>
+    {% endif %}
 </main>
 {% endblock %}
+

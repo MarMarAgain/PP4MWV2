@@ -1,3 +1,4 @@
+// Changes each date in the bookedDates list from a text string to a date object
 document.addEventListener('DOMContentLoaded', function() {
     // bookedDates array is defined in the HTML template and available here
     bookedDates = bookedDates.map(function(dateStr) {
@@ -7,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var form = document.getElementById('add-to-cart-form');
     var dateTimeInput = document.getElementById('date_time');
 
+// Checks if date is already booked
     form.addEventListener('submit', function(event) {
         var selectedDate = new Date(dateTimeInput.value);
         var isDateBooked = bookedDates.some(function(bookedDate) {

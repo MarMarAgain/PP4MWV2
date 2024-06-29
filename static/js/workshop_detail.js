@@ -1,3 +1,4 @@
+// Waits for page to load, then returns back if workshop saved to cart sucessfully.
 $(document).ready(function() {
     $('#add-to-cart-form').on('submit', function(e) {
         e.preventDefault();
@@ -20,7 +21,7 @@ $(document).ready(function() {
         e.preventDefault();  // Prevent default form submission
 
         var formData = $(this).serialize();  // Serialize form data
-        var actionUrl = $(this).attr('action');  // Form action URL
+        var actionUrl = $(this).attr('action');
 
         // Send POST request to add workshop to cart
         $.post(actionUrl, formData)

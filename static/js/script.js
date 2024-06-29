@@ -1,3 +1,4 @@
+// Updates the main workshop detail section with the content of a clicked workshop item
 document.addEventListener('DOMContentLoaded', () => {
     const workshopItems = document.querySelectorAll('.workshop-item');
     const mainWorkshopTitle = document.querySelector('.workshop-detail .workshop-title');
