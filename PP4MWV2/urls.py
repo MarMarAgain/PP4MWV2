@@ -21,14 +21,11 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from purchase import views as purchase_views
 
-
-
-
 urlpatterns = [
+   path("", TemplateView.as_view(template_name="Other/landing_page.html"), name="landing_page"),
    path('admin/', admin.site.urls),
    path("accounts/", include("accounts.urls")),
    path("accounts/", include("django.contrib.auth.urls")),
-   path("", TemplateView.as_view(template_name="home.html"), name="home"),
    path('workshops/', include('workshops.urls')),
    path('purchase/', include('purchase.urls')),
    path('landing/', include('other_pages.urls')),

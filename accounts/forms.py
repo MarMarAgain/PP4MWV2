@@ -21,8 +21,6 @@ class CustomUserCreationForm(UserCreationForm):
         user.phone_number = self.cleaned_data['phone_number']
         if commit:
             user.save()  # Save the user instance first
-
-            # Create associated profile
             Profile.objects.create(user=user)
         return user
 

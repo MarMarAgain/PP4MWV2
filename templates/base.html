@@ -21,6 +21,8 @@
                 <li><a href="{% url 'landing_page' %}" class="nav-link">Home</a></li>
                 <li><a href="{% url 'workshop_list' %}" class="nav-link">Workshops</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
+            
+            
                 {% if user.is_authenticated %}
                     <li><a href="{% url 'edit_profile' %}" class="nav-link">Profile</a></li>
                     <li><a href="{% url 'cart' %}" class="nav-link">Cart</a></li>

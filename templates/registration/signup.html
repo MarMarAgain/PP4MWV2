@@ -1,3 +1,5 @@
+<!-- templates/registration/signup.html -->
+
 {% extends "base.html" %}
 
 {% block title %}Sign Up{% endblock %}
@@ -11,7 +13,7 @@
 
 {% block content %}
 <div class="container mt-5">
-    <div class="row justify-content-start"> 
+    <div class="row justify-content-start">
         <div class="col-md-5">
             <div class="card">
                 <div class="card-header">
@@ -27,7 +29,7 @@
                             {% endfor %}
                         </div>
                     {% endif %}
-                    <form method="post">
+                    <form method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="form-group">
                             <label for="id_username">Username:</label>

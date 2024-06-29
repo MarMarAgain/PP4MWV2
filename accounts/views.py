@@ -16,21 +16,15 @@ from purchase.models import BookedWorkshop
 from accounts.models import Profile
 
 
+
 class SignUpView(CreateView):
     form_class = CustomUserCreationForm
     success_url = reverse_lazy('login')  # Redirect to profile page after successful signup
     template_name = 'registration/signup.html'
 
     def form_valid(self, form):
-        # Save the user and authenticate
-        user = form.save(commit=False)
+        user = form.save()  # This will save both User and Profile due to form's save method
         raw_password = form.cleaned_data.get('password1')
-        user.set_password(raw_password)  # Set password properly
-        user.full_name = form.cleaned_data.get('full_name')  # Save full_name to User model
-        user.phone_number = form.cleaned_data.get('phone_number')  # Save phone_number to User model
-        user.save()
-
-        # Authenticate the user and login
         user = authenticate(username=user.username, password=raw_password)
         if user is not None:
             login(self.request, user)
@@ -39,9 +33,6 @@ class SignUpView(CreateView):
         else:
             messages.error(self.request, 'Failed to authenticate. Please try logging in.')
             return redirect('signup')
-        #login(self.request, user)
-
-        #return super().form_valid(form)
 
 class CustomLoginView(LoginView):
     template_name = 'registration/login.html'
