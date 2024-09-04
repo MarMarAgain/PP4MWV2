@@ -24,8 +24,8 @@ Ocean of Notions is a Django-based web application designed for the Ocean of Not
 1. **Clone the repository:**
 
     ```sh
-    git clone https://github.com/yourusername/ocean-of-notions.git
-    cd ocean-of-notions
+    git clone https://github.com/MarMarAgain/PP4MWV2.git
+    cd PP4MWV2
     ```
 
 2. **Create a virtual environment:**
