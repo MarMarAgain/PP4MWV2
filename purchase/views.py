@@ -1,17 +1,14 @@
+import stripe
+from django.conf import settings
 from django.http import JsonResponse
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
-from .models import Cart, CartItem, BookedWorkshop
+from .models import Cart, CartItem
+from django.views.decorators.http import require_POST
 from workshops.models import Workshop
 from datetime import datetime
-from django.views.generic import TemplateView
-from django.views.decorators.http import require_POST
-from accounts.models import Profile
-from django.core.mail import send_mail
-from django.conf import settings
-from django.template.loader import render_to_string
-from django.utils.html import strip_tags
-
+from .stripe_func import create_customer, attach_payment_method
+import json
 
 @login_required
 def add_to_cart(request, workshop_id):
@@ -36,75 +33,65 @@ def add_to_cart(request, workshop_id):
 
     return redirect('cart')
 
-
-
 @login_required
-class PaymentView(TemplateView):
-    template_name = 'purchase/payment_form.html'
-
-
-@require_POST
-def remove_cart_item(request, item_id):
-    cart_item = get_object_or_404(CartItem, id=item_id)
-    cart_item.delete()
-    return JsonResponse({'success': True})
-
-@login_required
-def cart(request):
+def view_cart(request):
     try:
-        cart = request.user.cart
+        cart = Cart.objects.get(user=request.user)
     except Cart.DoesNotExist:
         cart = Cart.objects.create(user=request.user)
 
     return render(request, 'purchase/cart.html', {'cart': cart})
 
+stripe.api_key = settings.STRIPE_SECRET_KEY
+
 @login_required
-def book_now(request):
-    try:
-        cart = Cart.objects.get(user=request.user)
-    except Cart.DoesNotExist:
-        return redirect('cart')  # Redirect to cart or handle error
+def create_checkout_session(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        email = data.get('email')
+        payment_method_id = data.get('payment_method_id')
 
-    profile, created = Profile.objects.get_or_create(user=request.user)
-    for item in cart.items.all():
-        BookedWorkshop.objects.create(
-            user=request.user,
-            workshop=item.workshop,
-            date_time=item.date_time,
-            quantity=item.quantity
-        )
-        profile.booked_workshops.add(item.workshop)
+        # Create a Stripe customer
+        customer = create_customer(email)
 
-    subject = 'Workshop Booking Confirmation'
-    context = {
-        'user': request.user,
-        'items': cart.items.all(),
-    }
-    html_message = render_to_string('emails/booking_confirmation.html', context)
-    plain_message = strip_tags(html_message)
+        # Attach the payment method to the customer
+        attach_payment_method(customer.id, payment_method_id)
 
-    try:
-        send_mail(subject, plain_message, settings.DEFAULT_FROM_EMAIL, ['oceanofnotions@gmail.com'], html_message=html_message)
-    except Exception as e:
-        print(f"Failed to send email to admin: {e}")
+        # Create a payment intent or session and return the client secret or session ID
+        try:
+            payment_intent = stripe.PaymentIntent.create(
+                amount=1000,  # Example amount in cents
+                currency='usd',
+                customer=customer.id,
+                payment_method=payment_method_id,
+                off_session=True,
+                confirm=True,
+            )
+            return JsonResponse({'client_secret': payment_intent.client_secret})
+        except stripe.error.StripeError as e:
+            return JsonResponse({'error': str(e)}, status=400)
 
-    try:
-        send_mail(subject, plain_message, settings.DEFAULT_FROM_EMAIL, [request.user.email], html_message=html_message)
-    except Exception as e:
-        print(f"Failed to send email to user: {e}")
+    return render(request, 'purchase/cart.html')
 
-    cart.items.all().delete()
-    return redirect('payment_successful')
+@login_required
+def remove_cart_item(request, item_id):
+    cart_item = get_object_or_404(CartItem, id=item_id)
+    cart_item.delete()
+    return JsonResponse({'success': True})
+
 
 @login_required
 def payment_success(request):
-    # Logic for handling payment success
     return render(request, 'purchase/payment_success.html')
+
 
 @login_required
 def payment_failure(request):
-    # Logic for handling payment failure
     return render(request, 'purchase/payment_failure.html')
+
+
+
+
 
 
 

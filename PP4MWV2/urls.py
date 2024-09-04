@@ -21,15 +21,16 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from purchase import views as purchase_views
 
+
 urlpatterns = [
-   path("", TemplateView.as_view(template_name="Other/landing_page.html"), name="landing_page"),
-   path('admin/', admin.site.urls),
-   path("home/", include("home.urls")),
-   path("accounts/", include("accounts.urls")),
-   path("accounts/", include("django.contrib.auth.urls")),
-   path('workshops/', include('workshops.urls')),
-   path('purchase/', include('purchase.urls')),
-   path('landing/', include('other_pages.urls')),
-   path('cart/', purchase_views.cart, name='cart'),
+    path("", TemplateView.as_view(template_name="Other/landing_page.html"), name="landing_page"),
+    path('admin/', admin.site.urls),
+    path("home/", include("home.urls")),
+    path("accounts/", include("accounts.urls")),
+    path("accounts/", include("django.contrib.auth.urls")),
+    path('workshops/', include('workshops.urls')),
+    path('purchase/', include('purchase.urls')),
+    path('landing/', include('other_pages.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 

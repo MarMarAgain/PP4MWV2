@@ -1,13 +1,11 @@
 from django.urls import path
 from . import views
-from .views import add_to_cart
-
 
 urlpatterns = [
-   path('book-now/', views.book_now, name='book_now'),
-   path('payment-successful/', views.payment_success, name='payment_successful'),
-   path('failure/', views.payment_failure, name='payment_failure'),
-   path('add_to_cart/<int:workshop_id>/', add_to_cart, name='add_to_cart'),
-   path('cart/', views.cart, name='cart'),
-   path('remove/<int:item_id>/', views.remove_cart_item, name='remove_cart_item'),
+    path('cart/', views.view_cart, name='cart'),
+    path('cart/remove/<int:item_id>/', views.remove_cart_item, name='remove_cart_item'),
+    path('create-checkout-session/', views.create_checkout_session, name='create_checkout_session'),
+    path('payment-successful/', views.payment_success, name='payment_successful'),
+    path('payment-failure/', views.payment_failure, name='payment_failure'),
+    path('add-to-cart/<int:workshop_id>/', views.add_to_cart, name='add_to_cart'),
 ]
