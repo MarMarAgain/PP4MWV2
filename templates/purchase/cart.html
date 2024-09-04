@@ -1,11 +1,13 @@
 {% extends "base.html" %}
+{% load static  %}
 
-{% block title %}Confirm Booking{% endblock %}
+{% block title %}Your Cart{% endblock %}
 
 {% block extra_head %}
-{% load static %}
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="{% static 'landing/cart.css' %}">
+    {% load static %}
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/checkout.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 {% endblock %}
 
@@ -13,6 +15,7 @@
 <main class="container min-vh-100 d-flex flex-column justify-content-center align-items-center">
     <div class="cart-container">
         <div class="cart-content">
+            <h2 class="my-4 text-center">Confirm Booking</h2>
             <ul class="cart-items">
                 {% for cart_item in cart.items.all %}
                     <li class="cart-item">
@@ -39,19 +42,60 @@
                     <li>Your cart is empty.</li>
                 {% endfor %}
             </ul>
-        
-            <!-- Book Now Button -->
-            <form action="{% url 'book_now' %}" method="post">
-                {% csrf_token %}
-                <button type="submit" class="book-now-btn">Book Now</button>
-            </form> <br>
-        
-            <a href="{% url 'workshop_list' %}" class="continue">Continue Shopping</a>
-        </div>
+        </div> <!-- Closing the div with class="cart-content" -->
+    </div> <!-- Closing the div with class="cart-container" -->
+    
+    <div class="container main-content mt-4">
+        <h2 class="my-4 text-center">Checkout</h2>
+        {% if messages %}
+            <div class="alert alert-dismissible fade show {% if messages.tags == 'error' %}alert-danger{% else %}alert-success{% endif %}" role="alert">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endif %}
+        <form id="payment-form" method="post" novalidate>
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="mb-3">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% if field.errors %}
+                        <div class="text-danger">
+                            {{ field.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            <fieldset class="px-3">
+                <legend class="fieldset-label small text-black px-2 w-auto">Payment</legend>
+                <!-- A Stripe card element will go here -->
+                <div class="mb-3" id="card-element"></div>
+                <!-- Display form errors -->
+                <div class="mb-3 text-danger" id="card-errors" role="alert"></div>
+                <!-- Pass the client secret to the view to get the payment intent id -->
+                <input type="hidden" id="client-secret" value="{{ client_secret }}" name="client_secret">
+                <input type="hidden" id="payment-method-id" name="payment_method_id">
+            </fieldset>
+
+            <button type="submit" id="submit-button" class="btn btn-primary btn-block mt-3">Submit Order</button>
+        </form>
     </div>
 </main>
-
-<script src="{% static 'js/cart.js' %}"></script>
 {% endblock %}
+
+{% block extra_js %}
+    <script>
+        // Pass the Stripe public key to the JavaScript file
+        const stripePublicKey = "{{ stripe_public_key }}";
+        const clientSecret = "{{ client_secret }}";
+    </script>
+    <script src="{% static 'checkout/js/stripe_payment.js' %}"></script>
+{% endblock %}
+
 
 

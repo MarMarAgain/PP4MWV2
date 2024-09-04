@@ -1,51 +1,127 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Masterworks{% endblock %}</title>
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
-    <script src="https://kit.fontawesome.com/76ccc5dbcf.js" crossorigin="anonymous"></script>
-    {% block extra_head %}{% endblock %}
+    {% block meta %}
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {% endblock %}
+
+    {% block extra_meta %}
+    {% endblock %}
+
+    {% block corecss %}
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
+        <!-- Google Fonts QuickSand Link -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    {% endblock %}
+
+    {% block extra_css %}
+    {% endblock %}
+
+    {% block corejs %}
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+        <!-- Font Awesome -->
+        <script src="https://kit.fontawesome.com/76ccc5dbcf.js" crossorigin="anonymous"></script>
+        <!-- Stripe -->
+        <script src="https://js.stripe.com/v3/"></script>
+    {% endblock %}
+
+    {% block postloadjs %}
+        {{ block.super }}
+        {{ stripe_public_key|json_script:"id_stripe_public_key" }}
+        {{ client_secret|json_script:"id_client_secret" }}
+    {% endblock %}
+
+    {% block extra_js %}
+    {% endblock %}
+
+    {% block extra_head %}
+    {% endblock %}
+
+    <title>Masterworks Ecommerce {% block extra_title %}{% endblock %}</title>
 </head>
 
 <body>
-    <header class="header container">
-        <img src="{% static 'project images/black logo.svg' %}" alt="Ocean Of Notions Logo" class="logo">
-        <nav class="nav">
-            <button class="burger-menu">
-                <span class="burger-icon"></span>
-            </button>
-            <ul class="nav-links">
-                <li><a href="{% url 'landing_page' %}" class="nav-link">Home</a></li>
-                <li><a href="{% url 'workshop_list' %}" class="nav-link">Workshops</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
-            
-            
-                {% if user.is_authenticated %}
-                    <li><a href="{% url 'edit_profile' %}" class="nav-link">Profile</a></li>
-                    <li><a href="{% url 'cart' %}" class="nav-link">Cart</a></li>
-                    <li><a href="{% url 'logout' %}" class="nav-link login">Log out</a></li>
-                {% else %}
-                    <li><a href="{% url 'login' %}" class="nav-link login">Log in</a></li>
-                {% endif %}
-            </ul>
-        </nav>
+    <header class="container-fluid fixed-top">
+        <div id="topnav" class="row bg-white pt-lg-2 d-none d-lg-flex">
+            <div class="col-12 col-lg-4 my-auto py-1 py-lg-0 text-center text-lg-left">
+                <a href="{% url 'home' %}" class="nav-link main-logo-link">
+                    <img src="{% static 'project images/Masterworks.png' %}" class="img-fluid" alt="Masterworks Logo">
+                </a>
+            </div>
+            <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
+                <!-- Additional content can go here -->
+            </div>
+            <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
+                <ul class="list-inline list-unstyled text-center text-lg-right my-0">
+                    <li class="list-inline-item">
+                        <a class="text-black nav-link" href="{% url 'workshop_list' %}">
+                            <div class="text-center">
+                                <div><i class="fas fa-chalkboard-teacher fa-lg"></i></div>
+                                <p class="my-0">Workshops</p>
+                            </div>
+                        </a>
+                    </li>
+
+                    <li class="list-inline-item dropdown">
+                        <a class="text-black nav-link" href="#" id="user-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <div class="text-center">
+                                <div><i class="fas fa-user fa-lg"></i></div>
+                                <p class="my-0">My Account</p>
+                            </div>
+                        </a>
+                        <div class="dropdown-menu border-0" aria-labelledby="user-options">
+                            {% if request.user.is_authenticated %}
+                                {% if request.user.is_superuser %}
+                                    <a href="{% url 'product_management' %}" class="dropdown-item">Product Management</a>
+                                {% endif %}
+                                <a href="{% url 'edit_profile' %}" class="dropdown-item">My Profile</a>
+                                <a href="{% url 'logout' %}" class="dropdown-item">Logout</a>
+                            {% else %}
+                                <a href="{% url 'signup' %}" class="dropdown-item">Register</a>
+                                <a href="{% url 'login' %}" class="dropdown-item">Login</a>
+                            {% endif %}
+                        </div>
+                    </li>
+                    <li class="list-inline-item">
+                        <a class="{% if total %}text-info font-weight-bold{% else %}text-black{% endif %} nav-link" href="{% url 'cart' %}">
+                            <div class="text-center">
+                                <div><i class="fas fa-shopping-bag fa-lg"></i></div>
+                                <p class="my-0">
+                                    {% if total %}
+                                        €{{ total|floatformat:2 }}
+                                    {% else %}
+                                        €0.00
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </header>
 
     {% if messages %}
-    <div class="container mt-3">
-        {% for message in messages %}
-            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %}" role="alert">
-                {{ message }}
-            </div>
-        {% endfor %}
-    </div>
+        <div class="container mt-3">
+            {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %}" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
     {% endif %}
 
-    {% block content %}{% endblock %}
-    
+    {% block content %}
+    {% endblock %}
+
     <footer class="footer" id="contact">
         <div class="container footer-section">
             <div class="footer-contact">
@@ -59,30 +135,29 @@
             </div>
             
             <div class="footer-social ml-auto">
-                
                 <a href="https://www.facebook.com/p/The-Ocean-of-Notions-Theatre-Company-100057310396028/" target="_blank">
-                   <i class="fab fa-facebook-f fa-2x"></i>
+                    <i class="fab fa-facebook-f fa-2x"></i>
                 </a>
-                
                 <a href="https://www.linkedin.com/" target="_blank">
-                   <i class="fab fa-linkedin-in fa-2x"></i>
-               </a>
-                
+                    <i class="fab fa-linkedin-in fa-2x"></i>
+                </a>
                 <a href="https://www.youtube.com/" target="_blank">
-                  <i class="fab fa-youtube fa-2x"></i>
-              </a>
-                
-                <a href="https://www.instagram.com/oceanofnotionsproductions/?hl=zh-cn&ref=159" target="_blank"><i class="fab fa-instagram fa-2x"></i>
-              </a>
-
+                    <i class="fab fa-youtube fa-2x"></i>
+                </a>
+                <a href="https://www.instagram.com/oceanofnotionsproductions/?hl=zh-cn&ref=159" target="_blank">
+                    <i class="fab fa-instagram fa-2x"></i>
+                </a>
             </div>
-            
         </div>
     </footer>
+
+    {% block footer %}
+    {% endblock %}
 
     <script src="{% static 'js/nav.js' %}"></script>
 </body>
 </html>
+
 
 
 
