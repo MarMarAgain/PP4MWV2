@@ -1,126 +1,77 @@
-/* Set a base font size */
-html {
-    font-size: 16px;
-}
-
-body {
-    font-family: "Roboto Light", sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* General styles for the header */
-.header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background-color: #ffffff;
-    z-index: 1000;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.625rem 1.25rem;
-}
-
-/* Logo styles */
-.logo {
-    height: 3rem;
-    width: auto;
-}
-
-
-/* Burger menu styles */
-.burger-menu {
-    appearance:inherit;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0.3125rem;
-    display: block;
-}
-
-.burger-icon {
-    display: block;
-    width: 1.5625rem;
-    height: 0.125rem;
-    background-color: #6b7280;
-    position: relative;
-    transition: transform 0.3s ease;
-}
-
-.burger-icon:before,
-.burger-icon:after {
-    content: '';
-    display: block;
-    width: 100%;
+/* Basic resets */
+html, body {
     height: 100%;
-    background-color: inherit;
-    position: absolute;
-    transition: transform 0.3s ease;
+    margin: 0;
 }
 
-.burger-icon:before {
-    top: -0.5rem;
+/* Flexbox layout to ensure footer is at the bottom */
+body {
+    display: flex;
+    flex-direction: column;
+    background-size: cover;
+    color: darkslategrey;
+    font-family: 'Quicksand', sans-serif;
 }
 
-.burger-icon:after {
-    top: 0.5rem;
+/* Adjusting body for content spacing */
+main {
+    flex: 1;
+    padding-top: 70px;
 }
 
-/* Navigation styles */
-.nav {
+/* Header adjustments */
+.header-container {
+    padding-top: 70px;
+    border-bottom: 100px;
+}
+
+/* Navigation Bar Styles */
+.navbar {
+    padding: 0.5rem 1rem;
+}
+
+.navbar-brand {
     display: flex;
     align-items: center;
 }
 
-/* Navigation links styles */
-.nav-links {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: none;
-    position: absolute;
-    top: 3.75rem;
-    right: 1.25rem; /
-    background-color: #ffffff;
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
-    z-index: 999;
-     background-color: white;
+.navbar-toggler {
+    border: none;
 }
 
-.nav-links.open {
-    display: block;
+.navbar-toggler-icon {
+    background-image: url('data:image/svg+xml;charset=utf8,%3Csvg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"%3E%3Cpath stroke="rgba(0,0,0,.5)" stroke-width="2" d="M5 7h20M5 15h20M5 23h20"/%3E%3C/svg%3E');
 }
 
-.nav-links li {
-    padding: 0.625rem 1.25rem;
+/* Desktop Navigation */
+.navbar-nav {
+    display: flex;
+    align-items: center;
 }
 
-.nav-links a {
-    text-decoration: none;
-    color: #6b7280;
+.navbar-nav .nav-item {
+    margin-left: 1rem;
 }
 
-.nav-links a:hover {
-    color: mediumturquoise;
+.navbar-nav .nav-link {
+    color: #362B3D;
+    font-weight: 500;
 }
 
-/* Main content styles */
-.main-content {
-    padding-top: 8rem;
+.navbar-nav .nav-link:hover {
+    color: #786288;
 }
 
-/* Footer styles */
+/* Ensure the footer stays at the bottom */
 .footer {
     background-color: #f3f4f6;
     padding: 1.25rem;
     text-align: center;
+    margin-top: auto; /* Pushes the footer to the bottom */
 }
 
-.footer h2{
-    color: #c82333;
+.footer h2 {
+    color: #362B3D;
 }
 
 .footer a {
@@ -134,35 +85,79 @@ body {
     color: darkturquoise;
 }
 
-/* Media query for iPads and larger screens */
-@media (min-width: 48rem) {
-
-    .main-content {
-        margin-left: 0;
-        padding: 2rem;
-    }
-
-    .section{
-        padding: 2rem;
-        max-width: 800px;
-        margin: 0 auto;
-    }
-
-    .nav {
-        flex-grow: 1;
-        justify-content: flex-end;
-    }
-
-    .nav-links {
-        display: flex;
-        position: relative;
-        top: auto;
-        right: auto;
-        background-color: transparent;
-        box-shadow: none;
-    }
-
-    .burger-menu {
+/* Mobile Navigation */
+@media (max-width: 991px) {
+    #topnav {
         display: none;
     }
+
+    .navbar-expand-md {
+        display: block;
+    }
+}
+
+/* Mobile Burger Menu Styles */
+@media (max-width: 767px) {
+    .navbar-toggler {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 1rem;
+        z-index: 1050;
+    }
+
+    .navbar-collapse {
+        background-color: #fff;
+        padding: 1rem;
+        margin-top: 3.5rem;
+    }
+
+    .navbar-nav {
+        flex-direction: column;
+    }
+
+    .navbar-nav .nav-item {
+        margin-bottom: 0.5rem;
+    }
+
+    .navbar-nav .nav-link {
+        color: #362B3D;
+        font-weight: 500;
+    }
+
+    .navbar-nav .nav-link:hover {
+        color: #786288;
+    }
+
+    .img-fluid {
+        max-width: 20%;
+        height: auto;
+    }
+
+    /* Ensure the footer stays at the bottom */
+    .footer {
+        background-color: #f3f4f6;
+        padding: 1.25rem;
+        text-align: center;
+        margin-top: auto; /* Pushes the footer to the bottom */
+    }
+}
+
+/* Additional styling for media queries */
+@media (min-width: 1200px) {
+    .container {
+        max-width: 80%;
+    }
+}
+
+/* Media Query - Medium screens */
+@media (min-width: 992px) {
+    .fixed-top-desktop-only {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        z-index: 1030;
+    }
+
 }
