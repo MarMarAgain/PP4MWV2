@@ -21,12 +21,16 @@
                     <p class="workshop-description">About<br>{{ workshop.description }}</p>
 
 
-            <form id="add-to-cart-form" method="GET" action="{% url 'add_to_cart' workshop.id %}">
-                <label for="date_time">Select Date and Time:</label>
-                <input type="datetime-local" id="date_time" name="date_time" required>
-                <button type="submit" class="add-to-cart">Add to Cart</button>
-                </form>
-                <div id="add-to-cart-response" ></div>
+                     <form id="add-to-cart-form" method="GET" action="{% url 'add_to_cart' workshop.id %}">
+                        <label for="date_time">Select Date and Time:</label>
+                        <select id="date_time" name="date_time" required>
+                            {% for event in workshop_dates_times %}
+                                <option value="{{ event.date_time }}">{{ event.date_time|date:"F j, Y, g:i a" }} - {{ event.location }}</option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit" class="add-to-cart">Add to Cart</button>
+                     </form>
+                    <div id="add-to-cart-response" ></div>
                 </div>
             </section>
         </div>
