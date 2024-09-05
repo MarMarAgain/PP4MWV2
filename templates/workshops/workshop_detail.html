@@ -11,49 +11,43 @@
 {% block content %}
 
 <main class="main-content">
-        <div class="container">
-            <section class="workshop-detail">
-                <img src="{{ workshop.image.url }}" alt="{{ workshop.title }}" class="workshop-image">
-                <div class="workshop-info">
-                    <h2 class="workshop-title">{{ workshop.title }}</h2>
-                    <p class="additional-info">{{ workshop.category }}, {{ workshop.duration }}</p>
-                    <p class="workshop-price">€{{ workshop.price }}</p>
-                    <p class="workshop-description">About<br>{{ workshop.description }}</p>
+    <div class="container">
+        <section class="workshop-detail">
+            <img src="{{ workshop.image.url }}" alt="{{ workshop.title }}" class="workshop-image">
+            <div class="workshop-info">
+                <h2 class="workshop-title">{{ workshop.title }}</h2>
+                <p class="additional-info">{{ workshop.category }}, {{ workshop.duration }}</p>
+                <p class="workshop-price">€{{ workshop.price }}</p>
+                <p class="workshop-description">About<br>{{ workshop.description }}</p>
 
-
-                     <form id="add-to-cart-form" method="GET" action="{% url 'add_to_cart' workshop.id %}">
-                        <label for="date_time">Select Date and Time:</label>
-                        <select id="date_time" name="date_time" required>
-                            {% for event in workshop_dates_times %}
-                                <option value="{{ event.date_time }}">{{ event.date_time|date:"F j, Y, g:i a" }} - {{ event.location }}</option>
-                            {% endfor %}
-                        </select>
-                        <button type="submit" class="add-to-cart">Add to Cart</button>
-                     </form>
-                    <div id="add-to-cart-response" ></div>
-                </div>
-            </section>
-        </div>
-
+                <form id="add-to-cart-form" method="POST" action="{% url 'add_to_cart' workshop.id %}">
+                {% csrf_token %}
+                    <label for="date_time">Select Date and Time:</label>
+                    <select id="date_time" name="date_time" required>
+                        {% for event in workshop_dates_times %}
+                            <option value="{{ event.date_time.isoformat }}">{{ event.date_time|date:"F j, Y, g:i a" }} - {{ event.location }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit" class="add-to-cart">Add to Cart</button>
+                </form>
+             <div id="add-to-cart-response"></div>
+            </div>
+        </section>
+    </div>
 </main>
-</body>
 
 <script src="{% static 'workshop_static/js/scripts.js' %}"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-    
-    <!-- Initialize booked dates array - Issues arose when in edit_profile.js
-// This section gathers the dates of all booked workshops and stores them in an array -->
 <script>
     var bookedDates = [
         {% for workshop in all_booked_workshops %}
-            new Date("{{ workshop.date|date:'Y-m-d\\TH:i' }}"),
+            new Date("{{ workshop.date_time|date:'Y-m-d\\TH:i' }}"),
         {% endfor %}
     ];
 </script>
 <script src="{% static 'js/validate_dates.js' %}"></script>
 
 {% endblock %}
+
 
 
 

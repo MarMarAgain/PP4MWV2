@@ -49,12 +49,13 @@
                     <div class="item-details">
                         <h3>{{ booked_workshop.workshop.title }}</h3>
                         <p>Price: €{{ booked_workshop.workshop.price }}</p>
-                        <p>Date and Time: {{ booked_workshop.date_time }}</p>
+                        <p>Date and Time: {{ booked_workshop.date_time|date:"F j, Y, g:i a" }}</p> <!-- Corrected date/time format -->
                         <p>Quantity: {{ booked_workshop.quantity }}</p>
                     </div>
                 </div>
                 <div class="workshop-action">
-                    <form action="{% url 'cancel_workshop' booked_workshop.workshop.id %}" method="post">
+                    <!-- Correct cancel workshop action URL -->
+                    <form action="{% url 'cancel_workshop' booked_workshop.id %}" method="post">
                         {% csrf_token %}
                         <button type="submit" class="cancel-button btn btn-danger">Cancel Workshop</button>
                     </form>
@@ -72,6 +73,7 @@
     {% endif %}
 </div>
 {% endblock %}
+
 
 
 

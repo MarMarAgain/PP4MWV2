@@ -6,32 +6,37 @@ from django.contrib.auth.decorators import login_required
 from .models import Cart, CartItem
 from django.views.decorators.http import require_POST
 from workshops.models import Workshop
+from django.utils.dateparse import parse_datetime
 from datetime import datetime
 from .stripe_func import create_customer, attach_payment_method
 import json
 
 @login_required
 def add_to_cart(request, workshop_id):
-    workshop = get_object_or_404(Workshop, pk=workshop_id)
-    date_time_str = request.GET.get('date_time')
-    date_time = datetime.fromisoformat(date_time_str)
+    if request.method == 'POST':
+        workshop = get_object_or_404(Workshop, pk=workshop_id)
+        date_time_str = request.POST.get('date_time')
+        date_time = datetime.fromisoformat(date_time_str)
 
-    cart, created = Cart.objects.get_or_create(user=request.user)
-    cart_item, created = CartItem.objects.get_or_create(
-        cart=cart,
-        workshop=workshop,
-        date_time=date_time,
-        defaults={'quantity': 1}
-    )
+        cart, created = Cart.objects.get_or_create(user=request.user)
+        cart_item, created = CartItem.objects.get_or_create(
+            cart=cart,
+            workshop=workshop,
+            date_time=date_time,
+            defaults={'quantity': 1}
+        )
 
-    if not created:
-        cart_item.quantity += 1
-        cart_item.save()
+        if not created:
+            cart_item.quantity += 1
+            cart_item.save()
 
-    if request.is_ajax():
-        return JsonResponse({'message': 'Workshop added to cart successfully!'})
+        if request.is_ajax():
+            return JsonResponse({'message': 'Workshop added to cart successfully!'})
 
-    return redirect('cart')
+        return redirect('cart')
+
+    return JsonResponse({'message': 'Invalid request method.'}, status=400)
+
 
 @login_required
 def view_cart(request):
