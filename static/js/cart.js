@@ -1,23 +1,35 @@
-/* Removes items from cart */
+//Removes item from cart
 $(document).ready(function() {
-    // Submit form when Remove button is clicked
-    $('.remove-item-btn').on('click', function(e) {
-        e.preventDefault();
-        var form = $(this).closest('form');
+    console.log('jQuery ready and loaded');
+
+    // Intercept form submission
+    $('.remove-item-form').submit(function(event) {
+        event.preventDefault();  // Prevent the default form submission
+        console.log('Form submission intercepted');
+
+        var form = $(this);  // Get the form
+        var url = form.attr('action');  // Get the URL from form action
+        var itemId = form.find('input[name="item_id"]').val();  // Get the item ID
+
         $.ajax({
-            type: form.attr('method'),
-            url: form.attr('action'),
-            data: form.serialize(),
+            url: url,
+            type: 'POST',
+            data: form.serialize(),  // Serialize form data including CSRF token
             success: function(response) {
+                console.log('AJAX success response:', response);
                 if (response.success) {
-                    form.closest('.cart-item').remove(); // Remove the item from UI
+                    form.closest('.cart-item').remove();  // Remove the cart item from the DOM
+                    console.log('Item removed successfully');
                 } else {
-                    console.error('Failed to remove item from cart');
+                    console.log('Error in response');
                 }
             },
-            error: function(response) {
-                console.error('Error removing item from cart');
+            error: function(xhr, errmsg, err) {
+                console.log('AJAX error:', errmsg);
             }
         });
     });
 });
+
+
+

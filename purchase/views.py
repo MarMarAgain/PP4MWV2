@@ -80,9 +80,13 @@ def create_checkout_session(request):
 
 @login_required
 def remove_cart_item(request, item_id):
-    cart_item = get_object_or_404(CartItem, id=item_id)
-    cart_item.delete()
-    return JsonResponse({'success': True})
+    if request.method == 'POST':
+        print(f"Request to remove item with ID: {item_id}")  # Log to terminal for debugging- can remove later
+        cart_item = get_object_or_404(CartItem, id=item_id)
+        cart_item.delete()
+        return JsonResponse({'success': True})
+    return JsonResponse({'success': False}, status=400)
+
 
 
 @login_required
