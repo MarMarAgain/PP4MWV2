@@ -4,12 +4,17 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from .models import Cart, CartItem
-from django.views.decorators.http import require_POST
+from .contexts import cart_total_processor
 from workshops.models import Workshop
-from django.utils.dateparse import parse_datetime
 from datetime import datetime
 from .stripe_func import create_customer, attach_payment_method
 import json
+
+@login_required
+def get_cart_total(request):
+    context = cart_total_processor(request)
+    return JsonResponse({'total': str(context['total'])})
+
 
 @login_required
 def add_to_cart(request, workshop_id):
@@ -45,7 +50,10 @@ def view_cart(request):
     except Cart.DoesNotExist:
         cart = Cart.objects.create(user=request.user)
 
-    return render(request, 'purchase/cart.html', {'cart': cart})
+   # Calculate the total price
+    total = sum(item.workshop.price * item.quantity for item in cart.items.all())
+
+    return render(request, 'purchase/cart.html', {'cart': cart, 'total': total})
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 

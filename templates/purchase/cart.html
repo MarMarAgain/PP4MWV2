@@ -36,6 +36,12 @@
                             </form>
                         </div>
                     </li>
+                    
+                    <!-- Cart Total-->
+                    <div class="cart-total">
+                        <h3>Total: €{{ total|floatformat:2 }}</h3>
+                    </div>
+                    
                 {% empty %}
                     <li>Your cart is empty.</li>
                 {% endfor %}

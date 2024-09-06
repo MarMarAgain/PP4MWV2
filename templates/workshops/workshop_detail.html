@@ -4,8 +4,6 @@
 
 {% block extra_head %}
     <link rel="stylesheet" href="{% static 'workshop_static/css/workshop_styles.css' %}">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="{% static 'js/workshop_detail.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -44,8 +42,8 @@
         {% endfor %}
     ];
 </script>
-<script src="{% static 'js/validate_dates.js' %}"></script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{% static 'js/workshop_detail.js' %}"></script>
 {% endblock %}
 
 

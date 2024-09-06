@@ -1,27 +1,30 @@
+# purchase/contexts.py
 from decimal import Decimal
 from django.shortcuts import get_object_or_404
-from workshops.models import Workshop, WorkshopDateTime
+from .models import Cart, CartItem
 
-def bag_contents(request):
+def cart_total_processor(request):
     bag_items = []
     total = Decimal('0.00')
 
-    # Assume the bag structure is {product_id: event_id}
-    bag = request.session.get('bag', {})
+    try:
+        # Retrieve the cart for the logged-in user
+        cart = Cart.objects.get(user=request.user)
+    except Cart.DoesNotExist:
+        # If no cart exists, initialize an empty cart
+        cart = Cart()
 
-    for product_id, event_id in bag.items():
-        product = get_object_or_404(Workshop, pk=product_id)
-        event = get_object_or_404(WorkshopDateTime, pk=event_id)
-        price = Decimal(product.price)
-        # Add quantity to the total amount calculation
-        quantity = bag.get('quantity', 1)  # Default to 1 if quantity not specified
+    # Iterate through items in the cart
+    for item in cart.items.all():
+        workshop = item.workshop
+        price = Decimal(workshop.price)
+        quantity = item.quantity
         total += price * quantity
 
         bag_items.append({
-            'product': product,
-            'event': event,
+            'workshop': workshop,
             'price': price,
-            'quantity': quantity,  # Include quantity in the context
+            'quantity': quantity,
         })
 
     context = {
@@ -30,3 +33,4 @@ def bag_contents(request):
     }
 
     return context
+

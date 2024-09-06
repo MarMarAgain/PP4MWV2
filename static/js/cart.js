@@ -31,5 +31,10 @@ $(document).ready(function() {
     });
 });
 
-
+//Update total price in bag ( header)
+function updateCartTotal() {
+    $.getJSON("{% url 'get_cart_total' %}", function(data) {
+        $('#cart-total').text('€' + parseFloat(data.total).toFixed(2));
+    });
+}
 
