@@ -1,4 +1,3 @@
-# accounts/views.py
 from django.contrib.auth import login, authenticate, logout
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
@@ -7,14 +6,14 @@ from django.contrib.auth.views import LoginView
 from accounts.forms import CustomUserCreationForm, ProfileForm
 from django.contrib import messages
 from django.core.mail import send_mail
-from workshops.models import Workshop
+from workshops.models import Workshop, Review
+from workshops.forms import ReviewForm
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from purchase.models import BookedWorkshop
 from accounts.models import Profile
-
 
 
 class SignUpView(CreateView):
@@ -40,36 +39,60 @@ class CustomLoginView(LoginView):
     def get_success_url(self):
         return reverse_lazy('edit_profile')  # Redirect to profile page after login
 
-
 @login_required
 def edit_profile(request):
     profile, created = Profile.objects.get_or_create(user=request.user)
 
+    # Initialize review_form to ensure it's available for both GET and POST requests
+    review_form = None  # Default to None to handle cases where no review form is present
+
     if request.method == 'POST':
+        # Handle Profile form submission
         form = ProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
             form.save()
             messages.success(request, 'Your profile details have been saved.')
-            return redirect('edit_profile')  # Redirect after successful form submission
+            return redirect('edit_profile')
         else:
             messages.error(request, 'Please correct the errors below.')
-    else:
-        form = ProfileForm(instance=profile)
 
+        # Handle Review form submission
+        workshop_id = request.POST.get('workshop_id')
+        if workshop_id:  # Process review form only if workshop_id is provided
+            workshop = get_object_or_404(Workshop, id=workshop_id)
+            existing_review = Review.objects.filter(workshop=workshop, user=request.user).first()
+
+            review_form = ReviewForm(request.POST, instance=existing_review)
+            if review_form.is_valid():
+                review = review_form.save(commit=False)
+                review.user = request.user
+                review.workshop = workshop
+                review.save()
+                messages.success(request, 'Your review has been submitted.')
+                return redirect('edit_profile')
+    else:
+        # Initialize form instances for GET request
+        form = ProfileForm(instance=profile)
+        review_form = ReviewForm()  # Initialize  an empty form
+
+    # Fetch booked workshops
     booked_workshops = BookedWorkshop.objects.filter(user=request.user).select_related('workshop')
 
     context = {
         'profile': profile,
         'form': form,
+        'review_form': review_form,
         'booked_workshops': booked_workshops,
     }
 
     return render(request, 'accounts/edit_profile.html', context)
 
 
+
 @login_required
 def profile(request):
     return render(request, 'accounts/edit_profile.html')
+
 
 @login_required
 def cancel_workshop(request, workshop_id):
@@ -114,6 +137,7 @@ def cancel_workshop(request, workshop_id):
 def logout_view(request):
     logout(request)
     return redirect('login')
+
 
 def book_workshop_view(request):
     all_booked_workshops = Workshop.objects.filter(is_booked=True)

@@ -19,7 +19,7 @@ class Workshop(models.Model):
 class WorkshopDateTime(models.Model):  # Equivalent to CalendarEvent
     workshop = models.ForeignKey(Workshop, on_delete=models.CASCADE, related_name='events')
     date_time = models.DateTimeField()  # Renamed from date_time for consistency
-    location = models.CharField(max_length=255, default ="school")  # Added location field
+    location = models.CharField(max_length=255, default ="school")
 
 def __str__(self):
     return f"Event for {self.workshop.title} on {self.date_time}"
@@ -34,3 +34,26 @@ class Booking(models.Model):  # Booking is already quite similar
     def __str__(self):
         return f"{self.user.username} booked {self.workshop.title} at {self.event.date_time}"
 
+
+class Review(models.Model):
+    RATING_CHOICES = [
+        (1, '1 - Very Poor'),
+        (2, '2 - Poor'),
+        (3, '3 - Average'),
+        (4, '4 - Good'),
+        (5, '5 - Excellent'),
+    ]
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    workshop = models.ForeignKey('Workshop', on_delete=models.CASCADE, related_name='reviews')  # Workshop being reviewed
+    rating = models.IntegerField(choices=RATING_CHOICES)
+    comment = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = ('user', 'workshop')  # A user can only leave one review per workshop
+        ordering = ['-created_at']  # Most recent reviews appear first
+
+    def __str__(self):
+        return f"Review by {self.user.username} for {self.workshop.title} - {self.rating}/5"

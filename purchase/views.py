@@ -50,10 +50,30 @@ def view_cart(request):
     except Cart.DoesNotExist:
         cart = Cart.objects.create(user=request.user)
 
-   # Calculate the total price
-    total = sum(item.workshop.price * item.quantity for item in cart.items.all())
+    # Calculate the total price in cents (Stripe expects the amount in cents)
+    total = sum(item.workshop.price * item.quantity for item in cart.items.all()) * 100  # multiply by 100 for cents
 
-    return render(request, 'purchase/cart.html', {'cart': cart, 'total': total})
+    # Create a PaymentIntent on page load
+    try:
+        payment_intent = stripe.PaymentIntent.create(
+            amount=int(total),  # amount in cents
+            currency='eur',
+            payment_method_types=['card'],
+        )
+    except stripe.error.StripeError as e:
+        return render(request, 'purchase/cart.html', {
+            'cart': cart,
+            'total': total / 100,  # total in euros for display
+            'error': str(e)  # pass error to the template
+        })
+
+    # Pass client_secret to the template
+    return render(request, 'purchase/cart.html', {
+        'cart': cart,
+        'total': total / 100,  # total in euros for display
+        'client_secret': payment_intent.client_secret  # pass the client_secret to the template
+    })
+
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -73,8 +93,8 @@ def create_checkout_session(request):
         # Create a payment intent or session and return the client secret or session ID
         try:
             payment_intent = stripe.PaymentIntent.create(
-                amount=1000,  # Example amount in cents
-                currency='usd',
+                amount=1000,  # Amount in cents
+                currency='eur',
                 customer=customer.id,
                 payment_method=payment_method_id,
                 off_session=True,

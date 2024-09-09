@@ -49,17 +49,29 @@
                     <div class="item-details">
                         <h3>{{ booked_workshop.workshop.title }}</h3>
                         <p>Price: €{{ booked_workshop.workshop.price }}</p>
-                        <p>Date and Time: {{ booked_workshop.date_time|date:"F j, Y, g:i a" }}</p> <!-- Corrected date/time format -->
+                        <p>Date and Time: {{ booked_workshop.date_time|date:"F j, Y, g:i a" }}</p>
                         <p>Quantity: {{ booked_workshop.quantity }}</p>
                     </div>
                 </div>
+
                 <div class="workshop-action">
-                    <!-- Correct cancel workshop action URL -->
                     <form action="{% url 'cancel_workshop' booked_workshop.id %}" method="post">
                         {% csrf_token %}
                         <button type="submit" class="cancel-button btn btn-danger">Cancel Workshop</button>
                     </form>
                 </div>
+                
+                <!-- Add review form below each booked workshop -->
+                    <div class="review-section">
+                        <h4>Leave a Review:</h4>
+                        <form method="post" action="{% url 'edit_profile' %}">
+                            {% csrf_token %}
+                            {{ review_form.as_p }}
+                            <input type="hidden" name="workshop_id" value="{{ booked_workshop.workshop.id }}">
+                            <button type="submit" class="btn btn-primary">Submit Review</button>
+                        </form>
+                    </div>
+
             </div>
         {% empty %}
             <p>No workshops booked yet.</p>
@@ -73,6 +85,7 @@
     {% endif %}
 </div>
 {% endblock %}
+
 
 
 
