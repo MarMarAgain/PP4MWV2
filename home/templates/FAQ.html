@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+    <main class="main-content container">
+        <h2 class="section-title" id="faq-title">Frequently Asked Questions (FAQ)</h2>
+
+        <div class="faq-section">
+            <div class="faq-item">
+                <h3 class="faq-question">What types of workshops do you offer for Leaving Cert students?</h3>
+                <p class="faq-answer">We offer a variety of workshops specifically designed for Leaving Cert students, including English workshops, History workshops, and specialized courses like Film Studies and Comparison Studies. These workshops focus on exam preparation and in-depth analysis of key topics relevant to the Leaving Cert curriculum.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3 class="faq-question">Do you have workshops for Junior Cert students?</h3>
+                <p class="faq-answer">Yes, we provide engaging workshops for Junior Cert students in both English and History. Our Junior Cert English workshops focus on essay writing, reading comprehension, and oral language skills, while our Junior Cert History workshops cover key topics in the curriculum.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3 class="faq-question">How do I book a workshop for my school?</h3>
+                <p class="faq-answer">Booking is easy! Simply visit our <a href="{% url 'workshop_list' %}">workshop booking page</a>, create a profile, and select the workshops you're interested in. You can also modify workshop times and dates up to 48 hours in advance.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3 class="faq-question">Are the workshops tailored to the Irish curriculum?</h3>
+                <p class="faq-answer">Absolutely! All our workshops are specifically designed to align with the Irish curriculum, ensuring that students receive targeted support for both Leaving Cert and Junior Cert subjects. This includes English and History workshops as well as specialized courses like Film and Comparison Studies for Leaving Cert students.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3 class="faq-question">Can you explain more about your Film Studies and Comparison Studies workshops?</h3>
+                <p class="faq-answer">Our Film Studies workshops focus on helping Leaving Cert students analyze key films in-depth, including elements like cinematography, narrative structure, and themes. The Comparison Studies workshops offer a deep dive into comparing texts, plays, or films, helping students prepare for their comparative studies paper in the Leaving Cert.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3 class="faq-question">Do you offer online workshops for schools across Ireland?</h3>
+                <p class="faq-answer">Yes, we offer both in-person and online workshops for schools across Ireland. This allows teachers and students from all regions to access our expert-led workshops, whether they are focused on Leaving Cert English, Junior Cert History, or more specialized topics like Film and Comparative Studies.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3 class="faq-question">What payment methods do you accept for booking workshops?</h3>
+                <p class="faq-answer">We accept all major payment methods through our secure booking system, including credit and debit cards. Teachers can manage their bookings and make payments directly through our website, ensuring a hassle-free process.</p>
+            </div>
+        </div>
+    </main>
+{% endblock %}
