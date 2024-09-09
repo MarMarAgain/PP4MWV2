@@ -3,7 +3,7 @@
 Ocean of Notions is a Django-based web application designed for the Ocean of Notions Theatre Company's educational outreach program, Masterworks. This application allows educators to sign up, book workshops via a Stripe payment gateway, and cancel them. It is adaptable to fit into a preexisting company page or stand-alone. The user can also leave a review for the workshops they've booked.
 
 
-![Masterworks PR Image](https://github.com/MarMarAgain/PP4MWV2/assets/158588349/23f3927d-97c0-41bc-b564-bb04dd4f8cdc)
+![Masterworks PR Image](https://github.com/user-attachments/assets/85b55b80-db36-4d37-9f92-d81eb09e2147)
 
 
 ## Project Structure
