@@ -20,6 +20,7 @@ from django.urls import path, include
 from django.contrib import admin
 from django.views.generic import TemplateView
 from purchase import views as purchase_views
+from .views import RobotsTxtView, SitemapView
 
 
 urlpatterns = [
@@ -31,6 +32,8 @@ urlpatterns = [
     path('workshops/', include('workshops.urls')),
     path('purchase/', include('purchase.urls')),
     path('landing/', include('other_pages.urls')),
+    path('robots.txt', RobotsTxtView.as_view(), name='robots_txt'),
+    path('sitemap.xml', SitemapView.as_view(), name='sitemap'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

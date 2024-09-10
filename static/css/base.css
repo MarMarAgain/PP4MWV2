@@ -64,9 +64,10 @@ main {
 }
 
 .section-title {
-    font-size: 1rem;
+    font-size: 2rem;
     margin-bottom: 1rem;
     color: teal;
+    align:left;
 }
 
 /* Ensure the footer stays at the bottom */
