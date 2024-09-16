@@ -1,5 +1,6 @@
 from django import forms
-from .models import Review
+from .models import Review,WorkshopDateTime
+
 
 class ReviewForm(forms.ModelForm):
     class Meta:
@@ -15,3 +16,16 @@ class ReviewForm(forms.ModelForm):
             'rating': 'Rating',
             'comment': 'Your Comment',
         }
+
+
+class WorkshopBookingForm(forms.Form):
+    event = forms.ModelChoiceField(
+        queryset=WorkshopDateTime.objects.none(),
+        widget=forms.Select
+    )
+
+    def __init__(self, *args, **kwargs):
+        workshop_id = kwargs.pop('workshop_id')
+        super().__init__(*args, **kwargs)
+        self.fields['event'].queryset = WorkshopDateTime.objects.filter(workshop_id=workshop_id)
+

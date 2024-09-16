@@ -26,3 +26,5 @@ def workshop_booking_handler(sender, instance, action, **kwargs):
         to_email = instance.user.email
         admin_email = 'oceanofnotions@gmail.com'
         send_mail(subject, plain_message, settings.EMAIL_HOST_USER, [to_email, admin_email], html_message=html_message)
+
+

@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django import forms
 from .models import Workshop, WorkshopDateTime
-from .models import Review
+from .models import Review, Booking
 
 class WorkshopDateTimeForm(forms.ModelForm):
     class Meta:
@@ -39,5 +39,10 @@ class WorkshopAdmin(admin.ModelAdmin):
 # Register the WorkshopDateTime model with admin
 admin.site.register(WorkshopDateTime)
 admin.site.register(Review)
+admin.site.register(Booking)
+
+
+
+
 
 

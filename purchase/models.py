@@ -5,8 +5,6 @@ from workshops.models import Workshop
 class Cart(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
-
-
 class CartItem(models.Model):
     cart = models.ForeignKey(Cart, related_name='items', on_delete=models.CASCADE)
     workshop = models.ForeignKey(Workshop, on_delete=models.CASCADE)

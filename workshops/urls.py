@@ -7,3 +7,4 @@ urlpatterns = [
    path('<int:workshop_id>/', views.workshop_detail, name='workshop_detail'),
    path('<int:workshop_id>/book/', views.book_workshop, name='book_workshop'),
 ]
+

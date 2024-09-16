@@ -30,8 +30,8 @@ class Booking(models.Model):  # Booking is already quite similar
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     workshop = models.ForeignKey(Workshop, on_delete=models.CASCADE)
     date_time = models.DateTimeField()
-    total_price = models.DecimalField(max_digits=10, decimal_places=2, default='80')
-    stripe_checkout_id = models.CharField(max_length=255, null=True, blank=True)
+    total_price = models.DecimalField(max_digits=10, decimal_places=2)
+    stripe_checkout_id = models.CharField(max_length=255, blank=True, null=True)  # New field
 
     def __str__(self):
         return f"{self.user.username} booked {self.workshop.title}"
@@ -59,3 +59,4 @@ class Review(models.Model):
 
     def __str__(self):
         return f"Review by {self.user.username} for {self.workshop.title} - {self.rating}/5"
+
