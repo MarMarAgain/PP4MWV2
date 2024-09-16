@@ -5,10 +5,15 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from .models import Cart, CartItem
 from .contexts import cart_total_processor
-from workshops.models import Workshop
+from workshops.models import Workshop, Booking
 from datetime import datetime
+from django.utils import timezone
 from .stripe_func import create_customer, attach_payment_method
 import json
+from django.contrib.auth.models import User
+from django.http import HttpResponse
+
+
 
 @login_required
 def get_cart_total(request):
@@ -126,7 +131,50 @@ def payment_success(request):
 def payment_failure(request):
     return render(request, 'purchase/payment_failure.html')
 
+#stripe webhook
+def stripe_webhook(request):
+    payload=request.body
+    sig_header = request.META['HTTP_STRIPE_SIGNATURE']
+    endpoint_secret=settings.STRIPE_WEBHOOK_SECRET
 
+    try:
+        event=stripe.Webhook.construct_event(
+            payload, sig_header, endpoint_secret
+        )
+    except ValueError:
+        return HttpResponse(status=400)
+    except stripe.error.StripeError:
+        return HttpResponse(status=400)
+
+    if event['type']=='checkout.session.completed':
+        session = event['data']['object']
+
+        if session.mode =='payment' and session.payment_status == 'paid':
+            try:
+                user_id = session['metadata']['user_id']
+                workshop_ids = session['metadata']['workshop_ids'].split(',')
+                user = User.objects.get(id=user_id)
+            except (User.DoesNotExist, KeyError):
+                return HttpResponse(status=400)
+
+            for workshop_id in workshop_ids:
+                try:
+                    workshop = Workshop.objects.get(id=workshop_id)
+
+                    Booking.objects.create(
+                        user=user,
+                        workshop=workshop,
+                        date_time=timezone.now(),
+                        total_price=workshop.price,
+                        stripe_checkout_id=session['id']
+                    )
+
+                except Workshop.DoesNotExist:
+                    continue
+
+            return HttpResponse(status=200)
+
+    return HttpResponse(status=400)
 
 
 
