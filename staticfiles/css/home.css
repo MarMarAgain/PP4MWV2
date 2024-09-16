@@ -1,8 +1,8 @@
 .main-content {
-    padding-top: 0.5rem;
+    padding-top: 5rem;
     flex-grow: 1;
-    margin: 10px auto 1rem;
-
+    margin: 20px auto 1rem;
+    background-color: #007bff;
 }
 
 .section {
@@ -18,20 +18,19 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 10px;
-    padding-top: 2rem;
+    margin-top: 35px;
 }
 
 .image-container img {
-    max-width: 57%;
+    max-width: 80%;
     height: auto;
 }
 
 .circular-images {
     display: flex;
     justify-content: center;
-    gap: 5px;
-    margin-top: 0.04vh;
+    gap: 10px;
+    margin-top: 1vh;
     flex-wrap: wrap;
 }
 
@@ -67,13 +66,11 @@
 
 .btn-book:hover {
  background-color: #786288;
-    color: white;
-    text-decoration: none;
 }
 
 
 /* About and Booking sections for mobile */
-.faq-question {
+.section-title {
     font-size: 18px; /* Smaller font size for mobile */
     font-weight: bold;
     color: #362B3D;
@@ -81,11 +78,9 @@
     text-align: center; /* Center titles for mobile */
 }
 
-
-.faq-answer,
 .about-text,
 .booking-text {
-    text-align: initial;
+    text-align: center;
     font-size: 14px;
     color: lightslategrey;
     line-height: 1.6;
@@ -114,6 +109,16 @@
         width: 100px;
         height: 100px;
         display: block;
+    }
+
+    .btn-book {
+        padding: 15px 25px;
+        font-size: 16px;
+        margin-top: 3vh;
+        display: block;
+        margin: 3vh auto 0;
+        width: fit-content;
+        text-align: center;
     }
 
     .section-title {
