@@ -54,4 +54,3 @@ def book_workshop(request, workshop_id):
         'workshop': workshop,
         'workshop_dates_times': workshop_dates_times
     })
-

@@ -6,7 +6,7 @@ from django.contrib.auth.views import LoginView
 from accounts.forms import CustomUserCreationForm, ProfileForm
 from django.contrib import messages
 from django.core.mail import send_mail
-from workshops.models import Workshop, Review
+from workshops.models import Workshop, Review, Booking
 from workshops.forms import ReviewForm
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
@@ -33,11 +33,13 @@ class SignUpView(CreateView):
             messages.error(self.request, 'Failed to authenticate. Please try logging in.')
             return redirect('signup')
 
+
 class CustomLoginView(LoginView):
     template_name = 'registration/login.html'
 
     def get_success_url(self):
         return reverse_lazy('edit_profile')  # Redirect to profile page after login
+
 
 @login_required
 def edit_profile(request):
@@ -56,27 +58,14 @@ def edit_profile(request):
         else:
             messages.error(request, 'Please correct the errors below.')
 
-        # Handle Review form submission
-        workshop_id = request.POST.get('workshop_id')
-        if workshop_id:  # Process review form only if workshop_id is provided
-            workshop = get_object_or_404(Workshop, id=workshop_id)
-            existing_review = Review.objects.filter(workshop=workshop, user=request.user).first()
 
-            review_form = ReviewForm(request.POST, instance=existing_review)
-            if review_form.is_valid():
-                review = review_form.save(commit=False)
-                review.user = request.user
-                review.workshop = workshop
-                review.save()
-                messages.success(request, 'Your review has been submitted.')
-                return redirect('edit_profile')
     else:
         # Initialize form instances for GET request
         form = ProfileForm(instance=profile)
         review_form = ReviewForm()  # Initialize  an empty form
 
     # Fetch booked workshops
-    booked_workshops = BookedWorkshop.objects.filter(user=request.user).select_related('workshop')
+    booked_workshops = Booking.objects.filter(user=request.user).select_related('workshop')
 
     context = {
         'profile': profile,
@@ -88,29 +77,36 @@ def edit_profile(request):
     return render(request, 'accounts/edit_profile.html', context)
 
 
-
 @login_required
 def profile(request):
     return render(request, 'accounts/edit_profile.html')
 
 
 @login_required
-def cancel_workshop(request, workshop_id):
-    workshop = get_object_or_404(Workshop, pk=workshop_id)
+def cancel_workshop(request, booking_id):
     user = request.user
+    # Ensure the request method is POST (for security reasons)
+    if request.method == 'POST':
+        # Fetch the booking instance
+        booking = get_object_or_404(Booking, id=booking_id)
 
-    # Find the BookedWorkshop instance
-    booked_workshop = get_object_or_404(BookedWorkshop, user=user, workshop=workshop)
+        # Optionally: Check if the booking belongs to the current user
+        if booking.user != request.user:
+            messages.error(request, 'You do not have permission to cancel this booking.')
+            return redirect('edit_profile')
 
-    # Remove the workshop from user's booked workshops
-    user.profile.booked_workshops.remove(workshop)
+        # Update the workshop's status to canceled
+        workshop = booking.workshop
+        # workshop.is_canceled = True
+        workshop.save()
 
-    # Delete the BookedWorkshop instance
-    booked_workshop.delete()
+        # Optionally: Remove the booking or mark it as canceled
+        booking.delete()  # or booking.is_canceled = True and save()
 
     # Prepare email content for admin
     admin_subject = f'Workshop Cancellation by {user.get_full_name()}'
-    admin_message = render_to_string('emails/admin_cancellation_notification.html', {'user': user, 'workshop': workshop})
+    admin_message = render_to_string('emails/admin_cancellation_notification.html',
+                                     {'user': user, 'workshop': workshop})
     plain_admin_message = strip_tags(admin_message)
 
     # Prepare email content for user
@@ -120,13 +116,15 @@ def cancel_workshop(request, workshop_id):
 
     # Send email notification to admin
     try:
-        send_mail(admin_subject, plain_admin_message, settings.DEFAULT_FROM_EMAIL, ['oceanofnotions@gmail.com'], html_message=admin_message)
+        send_mail(admin_subject, plain_admin_message, settings.DEFAULT_FROM_EMAIL, ['oceanofnotions@gmail.com'],
+                  html_message=admin_message)
     except Exception as e:
         messages.error(request, f'Failed to send cancellation email to admin: {e}')
 
     # Send email notification to user
     try:
-        send_mail(user_subject, plain_user_message, settings.DEFAULT_FROM_EMAIL, [user.email], html_message=user_message)
+        send_mail(user_subject, plain_user_message, settings.DEFAULT_FROM_EMAIL, [user.email],
+                  html_message=user_message)
     except Exception as e:
         messages.error(request, f'Failed to send cancellation email to user: {e}')
 
@@ -145,3 +143,25 @@ def book_workshop_view(request):
         'all_booked_workshops': all_booked_workshops,
     }
     return render(request, 'workshops/workshop_list.html', context)
+
+
+def submit_review(request):
+    if request.method == 'POST':
+        workshop_id = request.POST.get('workshop_id')
+        if workshop_id:
+            workshop = get_object_or_404(Workshop, id=workshop_id)
+            existing_review = Review.objects.filter(workshop=workshop, user=request.user).first()
+            review_form = ReviewForm(request.POST, instance=existing_review)
+
+            if review_form.is_valid():
+                review = review_form.save(commit=False)
+                review.user = request.user
+                review.workshop = workshop
+                review.save()
+                messages.success(request, 'Your review has been submitted.')
+                return redirect('edit_profile')  # Redirect to the desired page
+
+        messages.error(request, 'Invalid workshop ID.')
+        return redirect('edit_profile')  # Redirect to the desired page
+    else:
+        return redirect('edit_profile')  # Redirect if not POST request

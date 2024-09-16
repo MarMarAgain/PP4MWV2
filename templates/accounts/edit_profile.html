@@ -64,7 +64,7 @@
                 <!-- Add review form below each booked workshop -->
                     <div class="review-section">
                         <h4>Leave a Review:</h4>
-                        <form method="post" action="{% url 'edit_profile' %}">
+                        <form method="post" action="{% url 'submit_review' %}">
                             {% csrf_token %}
                             {{ review_form.as_p }}
                             <input type="hidden" name="workshop_id" value="{{ booked_workshop.workshop.id }}">
@@ -85,6 +85,7 @@
     {% endif %}
 </div>
 {% endblock %}
+
 
 
 
