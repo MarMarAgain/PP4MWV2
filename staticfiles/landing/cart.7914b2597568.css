@@ -1,0 +1,146 @@
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+
+}
+
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Adjust padding as needed */
+}
+
+
+
+.nav {
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+}
+
+.sidebar-link:hover,
+.sidebar-link.active {
+    background-color: #e5e7eb;
+    border-radius: 0.5rem;
+}
+
+.cart-container {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+}
+
+.cart-content {
+    margin-bottom: 20px;
+}
+
+.cart-sidebar {
+    padding: 20px;
+    border-top: 1px solid #ddd;
+}
+
+.cart-items {
+    list-style-type: none;
+    padding: 0;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.cart-item img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.item-details h3 {
+    margin: 0;
+    font-size: 1.2em;
+}
+
+.item-details p {
+    margin: 5px 0;
+}
+
+.paid {
+    color: green;
+    font-weight: bold;
+}
+
+.remove-item {
+    color: red;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.book-now-btn{
+    background-color: #362B3D;
+
+}
+
+.book-now-btn:hover{
+    background-color: #786288;
+}
+
+.remove-item-btn {
+    width: auto;
+    background-color: maroon;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.remove-item-btn:hover {
+    background-color: #dc3545;
+}
+
+
+.continue {
+    background-color: teal;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+  .continue:hover {
+      background-color: #319e9e;
+  }
+
+@media (min-width: 768px) {
+    .cart-container {
+        flex-direction: row;
+        padding: 2rem;
+    }
+
+    .cart-content {
+        flex: 2;
+        margin-right: 20px;
+    }
+
+
+}

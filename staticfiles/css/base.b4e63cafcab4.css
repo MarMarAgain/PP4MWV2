@@ -1,0 +1,160 @@
+/* Basic resets */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+/* Flexbox layout to ensure footer is at the bottom */
+body {
+    display: flex;
+    flex-direction: column;
+    background-size: cover;
+    color: darkslategrey;
+    font-family: 'Quicksand', sans-serif;
+}
+
+/* Adjusting body for content spacing */
+main {
+    flex: 1;
+    padding-top: 70px;
+}
+
+
+/* Header adjustments */
+.header-container {
+    padding-top: 70px;
+    border-bottom: 100px;
+}
+
+/* Navigation Bar Styles */
+.navbar {
+    padding: 0.5rem 1rem;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-toggler {
+    border: none;
+}
+
+.navbar-toggler-icon {
+    background-image: url('data:image/svg+xml;charset=utf8,%3Csvg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"%3E%3Cpath stroke="rgba(0,0,0,.5)" stroke-width="2" d="M5 7h20M5 15h20M5 23h20"/%3E%3C/svg%3E');
+}
+
+/* Desktop Navigation */
+.navbar-nav {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-nav .nav-item {
+    margin-left: 1rem;
+}
+
+.navbar-nav .nav-link {
+    color: #362B3D;
+    font-weight: 500;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #786288;
+}
+
+.section-title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: teal;
+    align:left;
+}
+
+/* Ensure the footer stays at the bottom */
+.footer {
+    background-color: #f3f4f6;
+    padding: 1.25rem;
+    text-align: center;
+    margin-top: auto; /* Pushes the footer to the bottom */
+}
+
+.footer h2 {
+    color: #362B3D;
+}
+
+.footer a {
+    color: teal;
+    text-decoration: none;
+    transition: color 0.3s;
+    margin-right: 10px;
+}
+
+.footer a:hover {
+    color: darkturquoise;
+}
+
+/* Mobile Navigation */
+@media (max-width: 991px) {
+    #topnav {
+        display: none;
+    }
+
+    .navbar-expand-md {
+        display: block;
+    }
+}
+
+/* Mobile Burger Menu Styles */
+@media (max-width: 767px) {
+    .navbar-toggler {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 1rem;
+        z-index: 1050;
+    }
+
+    .navbar-collapse {
+        background-color: #fff;
+        padding: 1rem;
+        margin-top: 3.5rem;
+    }
+
+    .navbar-nav {
+        flex-direction: column;
+    }
+
+    .navbar-nav .nav-item {
+        margin-bottom: 0.5rem;
+    }
+
+    .navbar-nav .nav-link {
+        color: #362B3D;
+        font-weight: 500;
+    }
+
+    .navbar-nav .nav-link:hover {
+        color: #786288;
+    }
+
+    .img-fluid {
+        max-width: 20%;
+        height: auto;
+    }
+
+    /* Ensure the footer stays at the bottom */
+    .footer {
+        background-color: #f3f4f6;
+        padding: 1.25rem;
+        text-align: center;
+        margin-top: auto; /* Pushes the footer to the bottom */
+    }
+}
+
+/* Additional styling for media queries */
+@media (min-width: 1200px) {
+    .container {
+        max-width: 80%;
+    }
+}
+

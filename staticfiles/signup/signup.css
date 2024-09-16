@@ -1,0 +1,129 @@
+/* CSS serves signup/login/home/payment_success/ Payment_failure html */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px; /* Adjust padding as needed */
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    color: white;
+}
+
+.signup-container {
+    max-height: 50%;
+}
+
+.card {
+    margin-top: 20px;
+    padding: 20px;
+}
+
+.card-header {
+    text-align: center;
+}
+
+.card-title {
+    color: mediumturquoise;
+}
+
+.card-body {
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #4b5563;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.btn-primary,
+.additional-buttons .btn {
+    background-color: #362B3D;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 20px;
+    text-decoration: none;
+}
+
+.btn-primary:hover,
+.additional-buttons .btn:hover {
+    background-color: #786288;
+    color: white;
+}
+
+h1 {
+    text-align: center;
+    color: teal;
+    display: block;
+}
+
+h2 {
+    text-align: center;
+    color: #362B3D;
+    display: block;
+}
+
+h3 {
+    text-align: center;
+    color: maroon;
+}
+
+.signup-image {
+    height: 6%;
+}
+
+
+@media (min-width: 768px) {
+    .container {
+        max-width: 100%;
+    }
+
+    .header {
+        display: flex;
+    }
+}
+
+.signup-image {
+    max-width: 105%;
+    height: auto;
+    display: block;
+    margin:  auto;
+    padding-top: 10rem;
+    padding-left: 3rem;
+}
+
+.additional-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px; /* Add some space between buttons */
+}

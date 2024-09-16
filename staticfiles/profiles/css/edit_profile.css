@@ -1,0 +1,243 @@
+.main-content {
+    padding: 1rem;
+    flex-grow: 1;
+    margin: 20px auto 1rem;
+}
+
+.profile-section {
+    background-color: #ffffff;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.profile-photo-section {
+    flex-basis: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.profile-photo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 1rem; /* Adjusted from margin-right */
+}
+
+.profile-picture-label {
+    display: inline-block;
+    color: teal;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.profile-picture-label:hover {
+    color: #362B3D;
+}
+
+.profile-label {
+    flex-basis: 100%;
+    display: inline-block;
+    align-items: center;
+    align-content: center;
+    margin-bottom: 1rem;
+}
+
+.profile-info {
+    flex-basis: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.user-details {
+    flex-basis: 100%;
+    margin-top: 1rem;
+    padding-left: 0;
+    color: darkslategrey;
+}
+
+.user-details h3 {
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.booked-workshops {
+    flex-basis: 100%;
+    margin-top: 2rem;
+}
+
+.profile-form-section {
+    flex-basis: 100%;
+    margin-top: 2rem;
+}
+
+.profile-form .form-group {
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.save-changes {
+    background-color: teal;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.save-changes:hover {
+    background-color: #362B3D;
+}
+
+.profile-form label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.workshop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    margin-bottom: 20px;
+    flex-direction: column;
+    text-align: center;
+}
+
+.workshop-details {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.workshop-image {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    margin-right: 20px;
+    margin-bottom: 10px;
+}
+
+.workshop-image img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.workshop-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-weight: bold;
+}
+
+.workshop-info {
+    flex-grow: 1;
+    text-align: center;
+}
+
+.workshop-info h3 {
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.price {
+    font-weight: bold;
+    color: teal;
+    margin-bottom: 5px;
+}
+
+.about {
+    margin-bottom: 0;
+}
+
+.date {
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+.cancel-button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.cancel-button:hover {
+    background-color: #c82333;
+}
+
+@media (min-width: 768px) {
+    .main-content {
+        margin-left: 0;
+        padding: 2rem;
+    }
+
+    .profile-section {
+        padding: 2rem;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .profile-photo-section {
+        flex-basis: 100%;
+        margin-bottom: 100px;
+    }
+
+    .profile-photo {
+        width: 100px;
+        height: 100px;
+    }
+
+    .profile-info {
+        flex-basis: 50%;
+    }
+
+    .user-details {
+        flex-basis: 50%;
+        padding-left: 0;
+    }
+
+    .user-details h3 {
+        font-size: 1.25rem;
+    }
+
+    .workshop {
+        flex-direction: row;
+        text-align: left;
+    }
+
+    .workshop-details {
+        flex-direction: row;
+    }
+
+    .workshop-info {
+        text-align: left;
+    }
+
+    .workshop-info h3 {
+        font-size: 1.2rem;
+    }
+}
+
+
