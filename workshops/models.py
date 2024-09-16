@@ -20,7 +20,6 @@ class WorkshopDateTime(models.Model):  # Equivalent to CalendarEvent
     workshop = models.ForeignKey(Workshop, on_delete=models.CASCADE, related_name='events')
     date_time = models.DateTimeField()  # Renamed from date_time for consistency
     location = models.CharField(max_length=255, default ="school")
-
 def __str__(self):
     return f"Event for {self.workshop.title} on {self.date_time}"
 

@@ -21,7 +21,12 @@ load_dotenv()
 SECRET_KEY = env('SECRET_KEY', default='your_default_secret_key')
 DEBUG = env.bool('DEBUG', default=True)
 
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[])
+ALLOWED_HOSTS = [
+    '127.0.0.1',  # For local development
+    'localhost',  # For local development
+    'masterworkspp4-d4a31ef230f2.herokuapp.com',  # Heroku app domain
+]
+
 
 # Media
 MEDIA_URL = '/media/'
