@@ -35,6 +35,11 @@ class WorkshopAdmin(admin.ModelAdmin):
         }),
     )
 
+    class Media:
+        css = {
+            'all': ('css/admin.css',)  # Point to your custom CSS file
+        }
+        js = ('admin/js/custom.js',)  # Point to your custom JS file if needed
 
 # Register the WorkshopDateTime model with admin
 admin.site.register(WorkshopDateTime)

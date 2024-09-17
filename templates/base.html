@@ -20,6 +20,7 @@
     {% endblock %}
 
     {% block extra_css %}
+   
     {% endblock %}
 
     {% block corejs %}
@@ -48,8 +49,8 @@
 <body>
     <!-- Mobile Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light d-lg-none">
-        <a class="navbar-brand" href="{% url 'home' %}">
-            <img src="{% static 'project images/oonmasksvg.png' %}" class="img-fluid" alt="Masterworks Logo">
+        <a class="navbar-brand" href="{% url 'landing_page' %}">
+            <img src="{% static 'images/Masterworks.png' %}" class="img-fluid" alt="Masterworks Logo">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -97,9 +98,10 @@
     <header class="container-fluid fixed-top d-none d-lg-block">
         <div id="topnav" class="row bg-white pt-lg-2">
             <div class="col-12 col-lg-4 my-auto py-1 py-lg-0 text-center text-lg-left">
-                <a href="{% url 'home' %}" class="nav-link main-logo-link">
-                    <img src="{% static 'project images/Masterworks.png' %}" class="img-fluid" alt="Masterworks Logo">
+                <a href="{% url 'landing_page' %}" class="nav-link main-logo-link">
+                    <img src="{% static 'images/Masterworks.png' %}" class="img-fluid" alt="Masterworks Logo">
                 </a>
+                
             </div>
             <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
             </div>
@@ -173,28 +175,28 @@
     {% block content %}
     {% endblock %}
 
-    <footer class="footer" id="contact">
-        <div class="container footer-section">
-            <div class="footer-contact">
-                <h2>Contact</h2>
-                <div class="footer-contact-items">
-                    <p>Email: <a href="mailto:oceanofnotions@gmail.com">oceanofnotions@gmail.com</a></p>
-                    <p>Phone: 021 123 4567</p>
-                    <p>Address: 09876, T12 NNJK</p>
-                </div>
-                <p>Masterworks is a subsidiary of Oceans Of Notions Theatre Company</p>
-            </div>
-            <div class="footer-social ml-auto">
-                <a href="https://www.facebook.com/p/The-Ocean-of-Notions-Theatre-Company-100057310396028/" target="_blank"><i class="fab fa-facebook-f fa-2x"></i></a>
-                <a href="https://www.linkedin.com/" target="_blank"><i class="fab fa-linkedin-in fa-2x"></i></a>
-                <a href="https://www.youtube.com/" target="_blank"><i class="fab fa-youtube fa-2x"></i></a>
-                <a href="https://www.instagram.com/oceanofnotionsproductions/?hl=zh-cn&ref=159" target="_blank"><i class="fab fa-instagram fa-2x"></i></a>
-            </div>
-        </div>
-    </footer>
-
     {% block footer %}
+        <footer class="footer" id="contact">
+            <div class="container footer-section">
+                <div class="footer-contact">
+                    <h2>Contact</h2>
+                    <div class="footer-contact-items">
+                        <p>Email: <a href="mailto:oceanofnotions@gmail.com">oceanofnotions@gmail.com</a></p>
+                        <p>Phone: 021 123 4567</p>
+                        <p>Address: 09876, T12 NNJK</p>
+                    </div>
+                    <p>Masterworks is a subsidiary of Oceans Of Notions Theatre Company</p>
+                </div>
+                <div class="footer-social ml-auto">
+                    <a href="https://www.facebook.com/p/The-Ocean-of-Notions-Theatre-Company-100057310396028/" target="_blank"><i class="fab fa-facebook-f fa-2x"></i></a>
+                    <a href="https://www.linkedin.com/" target="_blank"><i class="fab fa-linkedin-in fa-2x"></i></a>
+                    <a href="https://www.youtube.com/" target="_blank"><i class="fab fa-youtube fa-2x"></i></a>
+                    <a href="https://www.instagram.com/oceanofnotionsproductions/?hl=zh-cn&ref=159" target="_blank"><i class="fab fa-instagram fa-2x"></i></a>
+                </div>
+            </div>
+        </footer>
     {% endblock %}
+
 </body>
 </html>
 

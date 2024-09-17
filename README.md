@@ -110,7 +110,7 @@ The `static` directory contains CSS, JavaScript, and image files used in the app
 The `templates` directory contains HTML templates used in the application. Key templates include:
 
 - **base.html**: Base template that other templates extend.
-- **landing_page.html**: Homepage template. (There is a home.html, and while that has a few links, it's not used).
+- **landing_page.html**: Homepage template.
 - **signup.html**: User registration template.
 - **login.html**: User login template.
 - **password_reset.html**: Password reset template.
