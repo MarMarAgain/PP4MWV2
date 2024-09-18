@@ -8,7 +8,7 @@ charset-normalizer==3.3.2
 cryptography==43.0.0
 dill==0.3.8
 distlib==0.3.8
-dj-database-url==2.2.0
+dj-database-url==0.5.0
 Django==5.0.7
 django-allauth==0.63.5
 django-booking==0.7.2

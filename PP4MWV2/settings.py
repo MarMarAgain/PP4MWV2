@@ -1,9 +1,10 @@
 from pathlib import Path
 import environ
-import os
 from dotenv import load_dotenv
 import django_heroku
 import stripe
+import os
+import dj_database_url
 
 BACKEND_DOMAIN = 'http://127.0.0.1:8000'
 
@@ -98,13 +99,19 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'PP4MWV2.wsgi.application'
 
-# Database configuration
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if 'DATABASE_URL' in os.environ:
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
     }
-}
+else:
+    # Database configuration
+    DATABASES = {
+       'default': {
+          'ENGINE': 'django.db.backends.sqlite3',
+          'NAME': BASE_DIR / 'db.sqlite3',
+       }
+    }
+
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
