@@ -12,6 +12,7 @@ from datetime import datetime
 from .stripe_func import create_customer, attach_payment_method
 import json
 from django.views import View
+from django.contrib import messages
 from django.views.generic import TemplateView
 from stripe import webhook
 from django.views.decorators.csrf import csrf_exempt
@@ -162,10 +163,19 @@ def remove_cart_item(request, item_id):
 def payment_success(request):
     try:
         cart = Cart.objects.get(user=request.user)
-        cart.items.all().delete()  # Remove all items from the cart
+
+        bookings = Booking.objects.filter(user=request.user)
+
+        # Delete all cart items (since payment was successful)
+        cart.items.all().delete()
+
+        # Extract workshop from the bookings
+        workshops = [booking.workshop for booking in bookings]
+
     except Cart.DoesNotExist:
         pass  # If no cart exists, do nothing
-    return render(request, 'purchase/payment_success.html')
+
+    return render(request, 'purchase/payment_success.html', {'workshops': workshops})
 
 
 @login_required
@@ -225,11 +235,13 @@ def stripe_webhook(request):
                     # Handle the case where a workshop is not found
                     continue  # Skip this workshop if not found
 
+
             # Return a 200 response when bookings are successfully created
             return HttpResponse(status=200)
 
     # Return 400 if the event type is not handled
     return HttpResponse(status=400)
+
 
 
 
