@@ -178,7 +178,7 @@ def payment_failure(request):
 def stripe_webhook(request):
     payload = request.body
     sig_header = request.META['HTTP_STRIPE_SIGNATURE']
-    endpoint_secret = settings.STRIPE_WEBHOOK_SECRET
+    endpoint_secret = settings.STRIPE_WH_SECRET
 
     try:
         # Verify the webhook signature
