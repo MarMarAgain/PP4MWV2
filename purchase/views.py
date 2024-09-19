@@ -164,12 +164,13 @@ def payment_success(request):
     try:
         cart = Cart.objects.get(user=request.user)
 
+        # Assuming you have bookings created during payment and want to delete cart items now
         bookings = Booking.objects.filter(user=request.user)
 
         # Delete all cart items (since payment was successful)
         cart.items.all().delete()
 
-        # Extract workshop from the bookings
+        # If you're passing workshops to the template, extract them from the bookings
         workshops = [booking.workshop for booking in bookings]
 
     except Cart.DoesNotExist:
