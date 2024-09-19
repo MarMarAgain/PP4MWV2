@@ -169,6 +169,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Stripe
 STRIPE_CURRENCY = 'eur'
-STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY', default='')
-STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY', default='')
-STRIPE_WH_SECRET = env('STRIPE_WH_SECRET', default='')
+STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY', default='')
+STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY', default='')
+STRIPE_WH_SECRET = os.environ.get('STRIPE_WH_SECRET', default='')
