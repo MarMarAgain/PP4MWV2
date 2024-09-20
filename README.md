@@ -136,7 +136,8 @@ The `templates` directory contains HTML templates used in the application. Key t
 3. **Add the Heroku remote:**
 
     ```sh
-    git remote add heroku https://git.heroku.com/ocean-of-notions.git
+    git remote add heroku https://git.heroku.com/masterworkspp4.git
+
     ```
 
 4. **Deploy the application:**
@@ -175,8 +176,9 @@ The `templates` directory contains HTML templates used in the application. Key t
    - Edit your profile information through the profile page.
 
 4. **Book a Workshop:**
-   - Browse available workshops and book a spot.
-   - Email confirmation is sent to put the admins email and the users.
+   - Browse available workshops and place in cart.
+   - Purchase workshop via stripe payment.
+   - Email confirmation is sent to both the uer and the admins email.
 
 5. **Cancel a Booking:**
    - Cancel your bookings through the booking management page.
@@ -188,7 +190,7 @@ The `templates` directory contains HTML templates used in the application. Key t
     
 ## Testing
 
-[Link to Google Sheets Document](https://docs.google.com/spreadsheets/d/1r9aXE0g0vNQ3vZQkkfax04xow1b_Bp2MzG0Hmn-zru4/edit?usp=sharing)
+NA
 
 ## References
 
