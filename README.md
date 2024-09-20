@@ -187,7 +187,10 @@ The `templates` directory contains HTML templates used in the application. Key t
 
 NA
 
-## References
+## SEO Strategy 
+
+[Google Document](https://docs.google.com/document/d/1Ixx2RuP8EHYnlKs9a5xiWq7Qo9aVVQrdGBMVlZH79K4/edit?usp=sharing)
+
 
 ### Books
 
